@@ -4,6 +4,7 @@ import com.epitech.pgt2019.Epikedin2App;
 
 import com.epitech.pgt2019.domain.UserExtra;
 import com.epitech.pgt2019.domain.User;
+import com.epitech.pgt2019.domain.City;
 import com.epitech.pgt2019.repository.UserExtraRepository;
 import com.epitech.pgt2019.service.UserExtraService;
 import com.epitech.pgt2019.service.dto.UserExtraDTO;
@@ -24,6 +25,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -44,6 +47,9 @@ public class UserExtraResourceIntTest {
 
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_BIRTHDATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_BIRTHDATE = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private UserExtraRepository userExtraRepository;
@@ -90,11 +96,16 @@ public class UserExtraResourceIntTest {
      */
     public static UserExtra createEntity() {
         UserExtra userExtra = new UserExtra()
-            .title(DEFAULT_TITLE);
+            .title(DEFAULT_TITLE)
+            .birthdate(DEFAULT_BIRTHDATE);
         // Add required entity
         User user = UserResourceIntTest.createEntity();
         user.setId("fixed-id-for-tests");
         userExtra.setUser(user);
+        // Add required entity
+        City city = CityResourceIntTest.createEntity();
+        city.setId("fixed-id-for-tests");
+        userExtra.setCity(city);
         return userExtra;
     }
 
@@ -120,6 +131,7 @@ public class UserExtraResourceIntTest {
         assertThat(userExtraList).hasSize(databaseSizeBeforeCreate + 1);
         UserExtra testUserExtra = userExtraList.get(userExtraList.size() - 1);
         assertThat(testUserExtra.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testUserExtra.getBirthdate()).isEqualTo(DEFAULT_BIRTHDATE);
     }
 
     @Test
@@ -151,7 +163,8 @@ public class UserExtraResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userExtra.getId())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())));
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
+            .andExpect(jsonPath("$.[*].birthdate").value(hasItem(DEFAULT_BIRTHDATE.toString())));
     }
     
     @Test
@@ -164,7 +177,8 @@ public class UserExtraResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(userExtra.getId()))
-            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()));
+            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
+            .andExpect(jsonPath("$.birthdate").value(DEFAULT_BIRTHDATE.toString()));
     }
 
     @Test
@@ -184,7 +198,8 @@ public class UserExtraResourceIntTest {
         // Update the userExtra
         UserExtra updatedUserExtra = userExtraRepository.findById(userExtra.getId()).get();
         updatedUserExtra
-            .title(UPDATED_TITLE);
+            .title(UPDATED_TITLE)
+            .birthdate(UPDATED_BIRTHDATE);
         UserExtraDTO userExtraDTO = userExtraMapper.toDto(updatedUserExtra);
 
         restUserExtraMockMvc.perform(put("/api/user-extras")
@@ -197,6 +212,7 @@ public class UserExtraResourceIntTest {
         assertThat(userExtraList).hasSize(databaseSizeBeforeUpdate);
         UserExtra testUserExtra = userExtraList.get(userExtraList.size() - 1);
         assertThat(testUserExtra.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testUserExtra.getBirthdate()).isEqualTo(UPDATED_BIRTHDATE);
     }
 
     @Test

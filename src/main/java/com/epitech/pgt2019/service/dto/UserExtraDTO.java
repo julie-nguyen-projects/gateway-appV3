@@ -1,4 +1,5 @@
 package com.epitech.pgt2019.service.dto;
+import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,10 +13,16 @@ public class UserExtraDTO implements Serializable {
 
     private String title;
 
+    private LocalDate birthdate;
+
 
     private String userId;
 
     private String userLogin;
+
+    private String cityId;
+
+    private String cityName;
 
     public String getId() {
         return id;
@@ -33,6 +40,14 @@ public class UserExtraDTO implements Serializable {
         this.title = title;
     }
 
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -47,6 +62,22 @@ public class UserExtraDTO implements Serializable {
 
     public void setUserLogin(String userLogin) {
         this.userLogin = userLogin;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
@@ -75,8 +106,11 @@ public class UserExtraDTO implements Serializable {
         return "UserExtraDTO{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
+            ", birthdate='" + getBirthdate() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
+            ", city=" + getCityId() +
+            ", city='" + getCityName() + "'" +
             "}";
     }
 }

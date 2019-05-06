@@ -4,6 +4,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { UserExtraService } from 'app/entities/user-extra/user-extra.service';
 import { IUserExtra, UserExtra } from 'app/shared/model/user-extra.model';
 
@@ -13,6 +15,7 @@ describe('Service Tests', () => {
         let service: UserExtraService;
         let httpMock: HttpTestingController;
         let elemDefault: IUserExtra;
+        let currentDate: moment.Moment;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
@@ -20,13 +23,19 @@ describe('Service Tests', () => {
             injector = getTestBed();
             service = injector.get(UserExtraService);
             httpMock = injector.get(HttpTestingController);
+            currentDate = moment();
 
-            elemDefault = new UserExtra('ID', 'AAAAAAA');
+            elemDefault = new UserExtra('ID', 'AAAAAAA', currentDate);
         });
 
         describe('Service methods', async () => {
             it('should find an element', async () => {
-                const returnedFromService = Object.assign({}, elemDefault);
+                const returnedFromService = Object.assign(
+                    {
+                        birthdate: currentDate.format(DATE_FORMAT)
+                    },
+                    elemDefault
+                );
                 service
                     .find('123')
                     .pipe(take(1))
@@ -39,11 +48,17 @@ describe('Service Tests', () => {
             it('should create a UserExtra', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        id: 'ID'
+                        id: 'ID',
+                        birthdate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
-                const expected = Object.assign({}, returnedFromService);
+                const expected = Object.assign(
+                    {
+                        birthdate: currentDate
+                    },
+                    returnedFromService
+                );
                 service
                     .create(new UserExtra(null))
                     .pipe(take(1))
@@ -55,12 +70,18 @@ describe('Service Tests', () => {
             it('should update a UserExtra', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        title: 'BBBBBB'
+                        title: 'BBBBBB',
+                        birthdate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
 
-                const expected = Object.assign({}, returnedFromService);
+                const expected = Object.assign(
+                    {
+                        birthdate: currentDate
+                    },
+                    returnedFromService
+                );
                 service
                     .update(expected)
                     .pipe(take(1))
@@ -72,11 +93,17 @@ describe('Service Tests', () => {
             it('should return a list of UserExtra', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        title: 'BBBBBB'
+                        title: 'BBBBBB',
+                        birthdate: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
-                const expected = Object.assign({}, returnedFromService);
+                const expected = Object.assign(
+                    {
+                        birthdate: currentDate
+                    },
+                    returnedFromService
+                );
                 service
                     .query(expected)
                     .pipe(

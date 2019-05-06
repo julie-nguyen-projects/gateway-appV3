@@ -9,9 +9,19 @@
                 <dd>
                     <span>{{userExtra.title}}</span>
                 </dd>
+                <dt><span>Birthdate</span></dt>
+                <dd>
+                    <span>{{userExtra.birthdate}}</span>
+                </dd>
                 <dt><span>User</span></dt>
                 <dd>
                     {{userExtra.userLogin}}
+                </dd>
+                <dt><span>City</span></dt>
+                <dd>
+                    <div *ngIf="userExtra.cityId">
+                        <a [routerLink]="['/city', userExtra.cityId, 'view']">{{userExtra.cityName}}</a>
+                    </div>
                 </dd>
             </dl>
 

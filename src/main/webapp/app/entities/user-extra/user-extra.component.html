@@ -16,7 +16,9 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Title</span></th>
+            <th><span>Birthdate</span></th>
             <th><span>User</span></th>
+            <th><span>City</span></th>
             <th></th>
             </tr>
             </thead>
@@ -24,8 +26,14 @@
             <tr *ngFor="let userExtra of userExtras ;trackBy: trackId">
                 <td><a [routerLink]="['/user-extra', userExtra.id, 'view' ]">{{userExtra.id}}</a></td>
                 <td>{{userExtra.title}}</td>
+                <td>{{userExtra.birthdate | date:'mediumDate'}}</td>
                 <td>
                     {{userExtra.userLogin}}
+                </td>
+                <td>
+                    <div *ngIf="userExtra.cityId">
+                        <a [routerLink]="['../city', userExtra.cityId , 'view' ]" >{{userExtra.cityName}}</a>
+                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
