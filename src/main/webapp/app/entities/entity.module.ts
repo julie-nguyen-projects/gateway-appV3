@@ -4,6 +4,18 @@ import { RouterModule } from '@angular/router';
 @NgModule({
     imports: [
         RouterModule.forChild([
+            {
+                path: 'user-extra',
+                loadChildren: './user-extra/user-extra.module#Epikedin2UserExtraModule'
+            },
+            {
+                path: 'country',
+                loadChildren: './country/country.module#Epikedin2CountryModule'
+            },
+            {
+                path: 'city',
+                loadChildren: './city/city.module#Epikedin2CityModule'
+            }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
     ],
