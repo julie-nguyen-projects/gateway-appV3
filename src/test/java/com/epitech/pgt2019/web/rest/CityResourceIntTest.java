@@ -45,6 +45,12 @@ public class CityResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NAME_WITH_SYMBOLS = "AAAAAAAAAA";
+    private static final String UPDATED_NAME_WITH_SYMBOLS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_POSTAL_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_POSTAL_CODE = "BBBBBBBBBB";
+
     @Autowired
     private CityRepository cityRepository;
 
@@ -90,7 +96,9 @@ public class CityResourceIntTest {
      */
     public static City createEntity() {
         City city = new City()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .nameWithSymbols(DEFAULT_NAME_WITH_SYMBOLS)
+            .postalCode(DEFAULT_POSTAL_CODE);
         // Add required entity
         Country country = CountryResourceIntTest.createEntity();
         country.setId("fixed-id-for-tests");
@@ -120,6 +128,8 @@ public class CityResourceIntTest {
         assertThat(cityList).hasSize(databaseSizeBeforeCreate + 1);
         City testCity = cityList.get(cityList.size() - 1);
         assertThat(testCity.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testCity.getNameWithSymbols()).isEqualTo(DEFAULT_NAME_WITH_SYMBOLS);
+        assertThat(testCity.getPostalCode()).isEqualTo(DEFAULT_POSTAL_CODE);
     }
 
     @Test
@@ -160,6 +170,42 @@ public class CityResourceIntTest {
     }
 
     @Test
+    public void checkNameWithSymbolsIsRequired() throws Exception {
+        int databaseSizeBeforeTest = cityRepository.findAll().size();
+        // set the field null
+        city.setNameWithSymbols(null);
+
+        // Create the City, which fails.
+        CityDTO cityDTO = cityMapper.toDto(city);
+
+        restCityMockMvc.perform(post("/api/cities")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<City> cityList = cityRepository.findAll();
+        assertThat(cityList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    public void checkPostalCodeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = cityRepository.findAll().size();
+        // set the field null
+        city.setPostalCode(null);
+
+        // Create the City, which fails.
+        CityDTO cityDTO = cityMapper.toDto(city);
+
+        restCityMockMvc.perform(post("/api/cities")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(cityDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<City> cityList = cityRepository.findAll();
+        assertThat(cityList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllCities() throws Exception {
         // Initialize the database
         cityRepository.save(city);
@@ -169,7 +215,9 @@ public class CityResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].nameWithSymbols").value(hasItem(DEFAULT_NAME_WITH_SYMBOLS.toString())))
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE.toString())));
     }
     
     @Test
@@ -182,7 +230,9 @@ public class CityResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(city.getId()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.nameWithSymbols").value(DEFAULT_NAME_WITH_SYMBOLS.toString()))
+            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE.toString()));
     }
 
     @Test
@@ -202,7 +252,9 @@ public class CityResourceIntTest {
         // Update the city
         City updatedCity = cityRepository.findById(city.getId()).get();
         updatedCity
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .nameWithSymbols(UPDATED_NAME_WITH_SYMBOLS)
+            .postalCode(UPDATED_POSTAL_CODE);
         CityDTO cityDTO = cityMapper.toDto(updatedCity);
 
         restCityMockMvc.perform(put("/api/cities")
@@ -215,6 +267,8 @@ public class CityResourceIntTest {
         assertThat(cityList).hasSize(databaseSizeBeforeUpdate);
         City testCity = cityList.get(cityList.size() - 1);
         assertThat(testCity.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testCity.getNameWithSymbols()).isEqualTo(UPDATED_NAME_WITH_SYMBOLS);
+        assertThat(testCity.getPostalCode()).isEqualTo(UPDATED_POSTAL_CODE);
     }
 
     @Test

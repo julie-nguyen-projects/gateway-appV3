@@ -20,6 +20,28 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nameWithSymbols">Name With Symbols</label>
+                    <input type="text" class="form-control" name="nameWithSymbols" id="field_nameWithSymbols"
+                        [(ngModel)]="city.nameWithSymbols" required/>
+                    <div [hidden]="!(editForm.controls.nameWithSymbols?.dirty && editForm.controls.nameWithSymbols?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nameWithSymbols?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_postalCode">Postal Code</label>
+                    <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                        [(ngModel)]="city.postalCode" required/>
+                    <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postalCode?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_country">Country</label>

@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(CityService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new City('ID', 'AAAAAAA');
+            elemDefault = new City('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -55,7 +55,9 @@ describe('Service Tests', () => {
             it('should update a City', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        name: 'BBBBBB'
+                        name: 'BBBBBB',
+                        nameWithSymbols: 'BBBBBB',
+                        postalCode: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -72,7 +74,9 @@ describe('Service Tests', () => {
             it('should return a list of City', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        name: 'BBBBBB'
+                        name: 'BBBBBB',
+                        nameWithSymbols: 'BBBBBB',
+                        postalCode: 'BBBBBB'
                     },
                     elemDefault
                 );

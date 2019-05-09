@@ -15,6 +15,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'city',
                 loadChildren: './city/city.module#Epikedin2CityModule'
+            },
+            {
+                path: 'city',
+                loadChildren: './city/city.module#Epikedin2CityModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

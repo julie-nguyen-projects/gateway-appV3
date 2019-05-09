@@ -13,6 +13,12 @@ public class CityDTO implements Serializable {
     @NotNull
     private String name;
 
+    @NotNull
+    private String nameWithSymbols;
+
+    @NotNull
+    private String postalCode;
+
 
     private String countryId;
 
@@ -32,6 +38,22 @@ public class CityDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameWithSymbols() {
+        return nameWithSymbols;
+    }
+
+    public void setNameWithSymbols(String nameWithSymbols) {
+        this.nameWithSymbols = nameWithSymbols;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getCountryId() {
@@ -76,6 +98,8 @@ public class CityDTO implements Serializable {
         return "CityDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", nameWithSymbols='" + getNameWithSymbols() + "'" +
+            ", postalCode='" + getPostalCode() + "'" +
             ", country=" + getCountryId() +
             ", country='" + getCountryName() + "'" +
             "}";

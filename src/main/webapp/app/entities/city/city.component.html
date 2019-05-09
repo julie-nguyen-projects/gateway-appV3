@@ -16,6 +16,8 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Name</span></th>
+            <th><span>Name With Symbols</span></th>
+            <th><span>Postal Code</span></th>
             <th><span>Country</span></th>
             <th></th>
             </tr>
@@ -24,6 +26,8 @@
             <tr *ngFor="let city of cities ;trackBy: trackId">
                 <td><a [routerLink]="['/city', city.id, 'view' ]">{{city.id}}</a></td>
                 <td>{{city.name}}</td>
+                <td>{{city.nameWithSymbols}}</td>
+                <td>{{city.postalCode}}</td>
                 <td>
                     <div *ngIf="city.countryId">
                         <a [routerLink]="['../country', city.countryId , 'view' ]" >{{city.countryName}}</a>
