@@ -26,8 +26,17 @@ public class City implements Serializable {
     @Field("name")
     private String name;
 
+    @NotNull
+    @Field("name_with_symbols")
+    private String nameWithSymbols;
+
+    @NotNull
+    @Field("postal_code")
+    private String postalCode;
+
     @DBRef
     @Field("country")
+    @JsonIgnoreProperties("cities")
     private Country country;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -50,6 +59,32 @@ public class City implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameWithSymbols() {
+        return nameWithSymbols;
+    }
+
+    public City nameWithSymbols(String nameWithSymbols) {
+        this.nameWithSymbols = nameWithSymbols;
+        return this;
+    }
+
+    public void setNameWithSymbols(String nameWithSymbols) {
+        this.nameWithSymbols = nameWithSymbols;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public City postalCode(String postalCode) {
+        this.postalCode = postalCode;
+        return this;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public Country getCountry() {
@@ -91,6 +126,8 @@ public class City implements Serializable {
         return "City{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", nameWithSymbols='" + getNameWithSymbols() + "'" +
+            ", postalCode='" + getPostalCode() + "'" +
             "}";
     }
 }
