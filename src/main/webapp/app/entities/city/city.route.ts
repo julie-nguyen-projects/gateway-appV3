@@ -11,6 +11,7 @@ import { CityDetailComponent } from './city-detail.component';
 import { CityUpdateComponent } from './city-update.component';
 import { CityDeletePopupComponent } from './city-delete-dialog.component';
 import { ICity } from 'app/shared/model/city.model';
+import {JhiResolvePagingParams} from 'ng-jhipster';
 
 @Injectable({ providedIn: 'root' })
 export class CityResolve implements Resolve<ICity> {
@@ -32,8 +33,12 @@ export const cityRoute: Routes = [
     {
         path: '',
         component: CityComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
         data: {
             authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
             pageTitle: 'Cities'
         },
         canActivate: [UserRouteAccessService]
