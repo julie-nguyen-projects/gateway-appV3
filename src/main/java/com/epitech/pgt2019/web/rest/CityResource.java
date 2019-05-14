@@ -1,18 +1,22 @@
 package com.epitech.pgt2019.web.rest;
+
 import com.epitech.pgt2019.service.CityService;
+import com.epitech.pgt2019.service.dto.CityDTO;
 import com.epitech.pgt2019.web.rest.errors.BadRequestAlertException;
 import com.epitech.pgt2019.web.rest.util.HeaderUtil;
-import com.epitech.pgt2019.service.dto.CityDTO;
+import com.epitech.pgt2019.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -76,12 +80,15 @@ public class CityResource {
     /**
      * GET  /cities : get all the cities.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of cities in body
      */
     @GetMapping("/cities")
-    public List<CityDTO> getAllCities() {
+    public ResponseEntity<List<CityDTO>> getAllCities(Pageable pageable) {
         log.debug("REST request to get all Cities");
-        return cityService.findAll();
+        Page<CityDTO> page = cityService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cities");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
