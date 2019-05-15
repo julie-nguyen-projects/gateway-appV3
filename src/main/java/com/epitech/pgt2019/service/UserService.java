@@ -3,7 +3,9 @@ package com.epitech.pgt2019.service;
 import com.epitech.pgt2019.config.Constants;
 import com.epitech.pgt2019.domain.Authority;
 import com.epitech.pgt2019.domain.User;
+import com.epitech.pgt2019.domain.UserExtra;
 import com.epitech.pgt2019.repository.AuthorityRepository;
+import com.epitech.pgt2019.repository.UserExtraRepository;
 import com.epitech.pgt2019.repository.UserRepository;
 import com.epitech.pgt2019.security.AuthoritiesConstants;
 import com.epitech.pgt2019.security.SecurityUtils;
@@ -41,11 +43,16 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    private final UserExtraRepository userExtraRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                       AuthorityRepository authorityRepository, CacheManager cacheManager,
+                       UserExtraRepository userExtraRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userExtraRepository = userExtraRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -118,7 +125,14 @@ public class UserService {
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
+
+        // Save UserExtra too
+        UserExtra newUserExtra = new UserExtra();
+        newUserExtra.setUser(savedUser);
+        newUserExtra.setId(savedUser.getId());
+        userExtraRepository.save(newUserExtra);
+
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
