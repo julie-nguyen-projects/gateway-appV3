@@ -19,6 +19,18 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'city',
                 loadChildren: './city/city.module#Epikedin2CityModule'
+            },
+            {
+                path: 'conversation',
+                loadChildren: './conversationService/conversation/conversation.module#ConversationServiceConversationModule'
+            },
+            {
+                path: 'user-conv',
+                loadChildren: './conversationService/user-conv/user-conv.module#ConversationServiceUserConvModule'
+            },
+            {
+                path: 'message',
+                loadChildren: './conversationService/message/message.module#ConversationServiceMessageModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
