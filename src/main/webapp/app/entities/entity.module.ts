@@ -31,6 +31,18 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'message',
                 loadChildren: './conversationService/message/message.module#ConversationServiceMessageModule'
+            },
+            {
+                path: 'user-feed',
+                loadChildren: './feedService/user-feed/user-feed.module#FeedServiceUserFeedModule'
+            },
+            {
+                path: 'post',
+                loadChildren: './feedService/post/post.module#FeedServicePostModule'
+            },
+            {
+                path: 'comment',
+                loadChildren: './feedService/comment/comment.module#FeedServiceCommentModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
