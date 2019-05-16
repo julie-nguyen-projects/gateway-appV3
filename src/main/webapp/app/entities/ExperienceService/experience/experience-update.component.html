@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-experience-heading">Create or edit a Experience</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!experience.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="experience.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                        [(ngModel)]="experience.title" required/>
+                    <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.title?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_beginningDate">Beginning Date</label>
+                    <div class="input-group">
+                        <input id="field_beginningDate" type="text" class="form-control" name="beginningDate" ngbDatepicker  #beginningDateDp="ngbDatepicker" [(ngModel)]="experience.beginningDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="beginningDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.beginningDate?.dirty && editForm.controls.beginningDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.beginningDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_endingDate">Ending Date</label>
+                    <div class="input-group">
+                        <input id="field_endingDate" type="text" class="form-control" name="endingDate" ngbDatepicker  #endingDateDp="ngbDatepicker" [(ngModel)]="experience.endingDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="endingDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="experience.type" id="field_type"  required>
+                        <option value="JOB">JOB</option>
+                        <option value="FORMATION">FORMATION</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.type?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="experience.userId"  required>
+                        <option *ngIf="!editForm.value.user" [ngValue]="null" selected></option>
+                        <option [ngValue]="expUserOption.id" *ngFor="let expUserOption of expusers; trackBy: trackExpUserById">{{expUserOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.user?.dirty && editForm.controls.user?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.user?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" [(ngModel)]="experience.companyId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_school">School</label>
+                    <select class="form-control" id="field_school" name="school" [(ngModel)]="experience.schoolId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="schoolOption.id" *ngFor="let schoolOption of schools; trackBy: trackSchoolById">{{schoolOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

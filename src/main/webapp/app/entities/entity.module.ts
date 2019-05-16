@@ -17,10 +17,6 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './city/city.module#Epikedin2CityModule'
             },
             {
-                path: 'city',
-                loadChildren: './city/city.module#Epikedin2CityModule'
-            },
-            {
                 path: 'conversation',
                 loadChildren: './conversationService/conversation/conversation.module#ConversationServiceConversationModule'
             },
@@ -43,6 +39,30 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'comment',
                 loadChildren: './feedService/comment/comment.module#FeedServiceCommentModule'
+            },
+            {
+                path: 'company',
+                loadChildren: './ExperienceService/company/company.module#ExperienceServiceCompanyModule'
+            },
+            {
+                path: 'country-exp',
+                loadChildren: './ExperienceService/country-exp/country-exp.module#ExperienceServiceCountryExpModule'
+            },
+            {
+                path: 'city-exp',
+                loadChildren: './ExperienceService/city-exp/city-exp.module#ExperienceServiceCityExpModule'
+            },
+            {
+                path: 'school',
+                loadChildren: './ExperienceService/school/school.module#ExperienceServiceSchoolModule'
+            },
+            {
+                path: 'exp-user',
+                loadChildren: './ExperienceService/exp-user/exp-user.module#ExperienceServiceExpUserModule'
+            },
+            {
+                path: 'experience',
+                loadChildren: './ExperienceService/experience/experience.module#ExperienceServiceExperienceModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
