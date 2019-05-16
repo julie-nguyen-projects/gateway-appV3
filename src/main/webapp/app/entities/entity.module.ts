@@ -43,6 +43,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'comment',
                 loadChildren: './feedService/comment/comment.module#FeedServiceCommentModule'
+            },
+            {
+                path: 'company',
+                loadChildren: './ExperienceService/company/company.module#ExperienceServiceCompanyModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

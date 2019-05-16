@@ -2,8 +2,7 @@
   "generator-jhipster": {
     "promptValues": {
       "packageName": "com.epitech.pgt2019",
-      "microservicePath": "../conversationService",
-      "microservicePath": "../feedService"
+      "microservicePath": "../experienceService"
     },
     "jhipsterVersion": "5.8.2",
     "applicationType": "gateway",
