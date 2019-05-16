@@ -1,20 +1,10 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="company">
-            <h2><span>Company</span> {{company.id}}</h2>
+        <div *ngIf="expUser">
+            <h2><span>Exp User</span> {{expUser.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Name</span></dt>
-                <dd>
-                    <span>{{company.name}}</span>
-                </dd>
-                <dt><span>City Exp</span></dt>
-                <dd>
-                    <div *ngIf="company.cityExpId">
-                        <a [routerLink]="['/city-exp', company.cityExpId, 'view']">{{company.cityExpName}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"
@@ -24,7 +14,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['/company', company.id, 'edit']"
+                    [routerLink]="['/exp-user', expUser.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>

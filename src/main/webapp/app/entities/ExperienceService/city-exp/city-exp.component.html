@@ -1,50 +1,50 @@
 <div>
     <h2 id="page-heading">
-        <span>Companies</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-company" [routerLink]="['/company/new']">
+        <span>City Exps</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-city-exp" [routerLink]="['/city-exp/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Create new Company
+            Create new City Exp
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="companies">
+    <div class="table-responsive" *ngIf="cityExps">
         <table class="table table-striped">
             <thead>
             <tr>
             <th><span>ID</span></th>
             <th><span>Name</span></th>
-            <th><span>City Exp</span></th>
+            <th><span>Country Exp</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let company of companies ;trackBy: trackId">
-                <td><a [routerLink]="['/company', company.id, 'view' ]">{{company.id}}</a></td>
-                <td>{{company.name}}</td>
+            <tr *ngFor="let cityExp of cityExps ;trackBy: trackId">
+                <td><a [routerLink]="['/city-exp', cityExp.id, 'view' ]">{{cityExp.id}}</a></td>
+                <td>{{cityExp.name}}</td>
                 <td>
-                    <div *ngIf="company.cityExpId">
-                        <a [routerLink]="['../city-exp', company.cityExpId , 'view' ]" >{{company.cityExpName}}</a>
+                    <div *ngIf="cityExp.countryExpId">
+                        <a [routerLink]="['../country-exp', cityExp.countryExpId , 'view' ]" >{{cityExp.countryExpName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/company', company.id, 'view' ]"
+                                [routerLink]="['/city-exp', cityExp.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/company', company.id, 'edit']"
+                                [routerLink]="['/city-exp', cityExp.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', 'company', { outlets: { popup: company.id + '/delete'} }]"
+                                [routerLink]="['/', 'city-exp', { outlets: { popup: cityExp.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

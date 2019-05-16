@@ -1,36 +1,30 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-company-heading">Create or edit a Company</h2>
+            <h2 id="jhi-city-exp-heading">Create or edit a City Exp</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!company.id">
+                <div class="form-group" [hidden]="!cityExp.id">
                     <label for="id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="company.id" readonly />
+                        [(ngModel)]="cityExp.id" readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="company.name" required/>
-                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.required">
-                        This field is required.
-                        </small>
-                    </div>
+                        [(ngModel)]="cityExp.name" />
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_cityExp">City Exp</label>
-                    <select class="form-control" id="field_cityExp" name="cityExp" [(ngModel)]="company.cityExpId"  required>
-                        <option *ngIf="!editForm.value.cityExp" [ngValue]="null" selected></option>
-                        <option [ngValue]="cityExpOption.id" *ngFor="let cityExpOption of cityexps; trackBy: trackCityExpById">{{cityExpOption.name}}</option>
+                    <label class="form-control-label" for="field_countryExp">Country Exp</label>
+                    <select class="form-control" id="field_countryExp" name="countryExp" [(ngModel)]="cityExp.countryExpId"  required>
+                        <option *ngIf="!editForm.value.countryExp" [ngValue]="null" selected></option>
+                        <option [ngValue]="countryExpOption.id" *ngFor="let countryExpOption of countryexps; trackBy: trackCountryExpById">{{countryExpOption.name}}</option>
                     </select>
                 </div>
-                <div [hidden]="!(editForm.controls.cityExp?.dirty && editForm.controls.cityExp?.invalid)">
+                <div [hidden]="!(editForm.controls.countryExp?.dirty && editForm.controls.countryExp?.invalid)">
                     <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.cityExp?.errors?.required">
+                        [hidden]="!editForm.controls.countryExp?.errors?.required">
                         This field is required.
                     </small>
                 </div>
