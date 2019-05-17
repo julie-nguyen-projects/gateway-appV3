@@ -116,4 +116,16 @@ public class CityResource {
         cityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
+
+    /**
+     * GET  /cities : get all the cities.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of cities in body
+     */
+    @GetMapping("/cities/nameStartsWith/{query}")
+    public ResponseEntity<List<CityDTO>> getAllCities(@PathVariable String query) {
+        log.debug("REST request to get all Cities");
+        List<CityDTO> cities = cityService.findCitiesNameStartsWith(query);
+        return ResponseEntity.ok().body(cities);
+    }
 }

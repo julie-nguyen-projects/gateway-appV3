@@ -35,4 +35,9 @@ export class CityService {
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
+
+    getCitiesByNameStartsWith(query: string) {
+        return this.http.get<ICity[]>(`${this.resourceUrl}/nameStartsWith/${query}`, { observe: 'response' });
+
+    }
 }
