@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { UserExtraService } from './user-extra.service';
 import { IUser, UserService } from 'app/core';
@@ -25,10 +25,12 @@ export class UserExtraUpdateComponent implements OnInit {
     birthdateDp: any;
 
     constructor(
+        protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
         protected userExtraService: UserExtraService,
         protected userService: UserService,
         protected cityService: CityService,
+        protected elementRef: ElementRef,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -51,6 +53,22 @@ export class UserExtraUpdateComponent implements OnInit {
                 map((response: HttpResponse<ICity[]>) => response.body)
             )
             .subscribe((res: ICity[]) => (this.cities = res), (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
+    }
+
+    clearInputImage(field: string, fieldContentType: string, idInput: string) {
+        this.dataUtils.clearInputImage(this.userExtra, this.elementRef, field, fieldContentType, idInput);
     }
 
     previousState() {

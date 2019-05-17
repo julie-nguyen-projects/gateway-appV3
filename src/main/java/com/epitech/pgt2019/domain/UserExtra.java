@@ -29,6 +29,12 @@ public class UserExtra implements Serializable {
     @Field("birthdate")
     private LocalDate birthdate;
 
+    @Field("picture")
+    private byte[] picture;
+
+    @Field("picture_content_type")
+    private String pictureContentType;
+
     @DBRef
     @Field("user")
     private User user;
@@ -71,6 +77,32 @@ public class UserExtra implements Serializable {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public UserExtra picture(byte[] picture) {
+        this.picture = picture;
+        return this;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public String getPictureContentType() {
+        return pictureContentType;
+    }
+
+    public UserExtra pictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
+        return this;
+    }
+
+    public void setPictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
     }
 
     public User getUser() {
@@ -126,6 +158,8 @@ public class UserExtra implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             ", birthdate='" + getBirthdate() + "'" +
+            ", picture='" + getPicture() + "'" +
+            ", pictureContentType='" + getPictureContentType() + "'" +
             "}";
     }
 }

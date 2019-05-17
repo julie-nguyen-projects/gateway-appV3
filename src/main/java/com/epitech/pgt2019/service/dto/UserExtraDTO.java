@@ -15,6 +15,9 @@ public class UserExtraDTO implements Serializable {
 
     private LocalDate birthdate;
 
+    private byte[] picture;
+
+    private String pictureContentType;
 
     private String userId;
 
@@ -46,6 +49,22 @@ public class UserExtraDTO implements Serializable {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public String getPictureContentType() {
+        return pictureContentType;
+    }
+
+    public void setPictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
     }
 
     public String getUserId() {
@@ -107,6 +126,7 @@ public class UserExtraDTO implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             ", birthdate='" + getBirthdate() + "'" +
+            ", picture='" + getPicture() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
             ", city=" + getCityId() +

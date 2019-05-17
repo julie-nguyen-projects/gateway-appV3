@@ -4,6 +4,8 @@ export interface IUserExtra {
     id?: string;
     title?: string;
     birthdate?: Moment;
+    pictureContentType?: string;
+    picture?: any;
     userLogin?: string;
     userId?: string;
     cityName?: string;
@@ -15,6 +17,8 @@ export class UserExtra implements IUserExtra {
         public id?: string,
         public title?: string,
         public birthdate?: Moment,
+        public pictureContentType?: string,
+        public picture?: any,
         public userLogin?: string,
         public userId?: string,
         public cityName?: string,
