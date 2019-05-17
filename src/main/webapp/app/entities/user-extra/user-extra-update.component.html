@@ -40,10 +40,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_city">City</label>
-                    <select class="form-control" id="field_city" name="city" [(ngModel)]="userExtra.cityId"  required>
-                        <option *ngIf="!editForm.value.city" [ngValue]="null" selected></option>
-                        <option [ngValue]="cityOption.id" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.name}}</option>
-                    </select>
+                    <p-autoComplete [(ngModel)]="userExtra.cityId" [suggestions]="cities" name="city"
+                                    field="name" (completeMethod)="search($event)"></p-autoComplete>
                 </div>
                 <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
                     <small class="form-text text-danger"

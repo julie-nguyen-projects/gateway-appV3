@@ -90,4 +90,15 @@ export class UserExtraUpdateComponent implements OnInit {
     trackCityById(index: number, item: ICity) {
         return item.id;
     }
+
+    search(event: any) {
+        this.cityService
+            .getCitiesByNameStartsWith(event.query)
+            .pipe(
+                filter((mayBeOk: HttpResponse<ICity[]>) => mayBeOk.ok),
+                map((response: HttpResponse<ICity[]>) => response.body)
+            )
+            .subscribe((res: ICity[]) => (this.cities = res), (res: HttpErrorResponse) => this.onError(res.message));
+
+    }
 }
