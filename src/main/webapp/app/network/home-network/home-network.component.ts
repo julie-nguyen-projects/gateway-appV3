@@ -28,7 +28,7 @@ export class HomeNetworkComponent implements OnInit {
 
     searchUsers(event: any) {
         this.userExtraService
-            .getUsersByNameOrFirstNameStartsWith(event.query)
+            .getUsersByNameOrFirstNameContains(event.query)
             .pipe(
                 filter((mayBeOk: HttpResponse<IUserExtra[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IUserExtra[]>) => response.body)

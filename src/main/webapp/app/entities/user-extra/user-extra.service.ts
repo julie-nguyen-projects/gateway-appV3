@@ -50,8 +50,8 @@ export class UserExtraService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    getUsersByNameOrFirstNameStartsWith(query: any) {
-        return this.http.get<IUserExtra[]>(`${this.resourceUrl}/nameOrFirstNameStartsWith/${query}`, { observe: 'response' });
+    getUsersByNameOrFirstNameContains(query: any) {
+        return this.http.get<IUserExtra[]>(`${this.resourceUrl}/nameOrFirstNameContains/${query}`, { observe: 'response' });
 
     }
 
