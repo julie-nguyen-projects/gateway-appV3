@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgJhipsterModule } from 'ng-jhipster';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { CookieModule } from 'ngx-cookie';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {AutoCompleteModule} from 'primeng/primeng';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgJhipsterModule} from 'ng-jhipster';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {CookieModule} from 'ngx-cookie';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AutoCompleteModule, TabViewModule} from 'primeng/primeng';
 
 @NgModule({
     imports: [NgbModule.forRoot(), InfiniteScrollModule, CookieModule.forRoot(), FontAwesomeModule,
-        AutoCompleteModule],
+        AutoCompleteModule, TabViewModule],
     exports: [FormsModule, CommonModule, NgbModule, NgJhipsterModule, InfiniteScrollModule, FontAwesomeModule,
-        AutoCompleteModule]
+        AutoCompleteModule, TabViewModule]
 })
 export class Epikedin2SharedLibsModule {
     static forRoot() {

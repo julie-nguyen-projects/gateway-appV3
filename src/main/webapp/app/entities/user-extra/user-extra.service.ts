@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
+import {ICity} from 'app/shared/model/city.model';
 
 type EntityResponseType = HttpResponse<IUserExtra>;
 type EntityArrayResponseType = HttpResponse<IUserExtra[]>;
@@ -47,6 +48,11 @@ export class UserExtraService {
 
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    getUsersByNameOrFirstNameStartsWith(query: any) {
+        return this.http.get<IUserExtra[]>(`${this.resourceUrl}/nameOrFirstNameStartsWith/${query}`, { observe: 'response' });
+
     }
 
     protected convertDateFromClient(userExtra: IUserExtra): IUserExtra {
