@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +86,8 @@ public class CityService {
         return cityRepository.findByNameStartsWith(query.toUpperCase())
             .stream()
             .map(cityMapper::toDto)
+            .sorted(Comparator.comparing(CityDTO::getName))
+            .limit(10)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 }
