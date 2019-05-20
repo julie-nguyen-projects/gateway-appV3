@@ -7,10 +7,13 @@ import com.epitech.pgt2019.service.mapper.CityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import org.springframework.data.domain.Pageable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing City.
@@ -75,5 +78,13 @@ public class CityService {
     public void delete(String id) {
         log.debug("Request to delete City : {}", id);
         cityRepository.deleteById(id);
+    }
+
+    public List<CityDTO> findCitiesNameStartsWith(String query) {
+        log.debug("Request to get Cities with name starts with : {}", query);
+        return cityRepository.findByNameStartsWith(query.toUpperCase())
+            .stream()
+            .map(cityMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 }
