@@ -40,7 +40,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_city">City</label>
-                    <p-autoComplete [(ngModel)]="userExtra.cityId" [suggestions]="cities" name="city"
+                    <p-autoComplete class="ui-g-12 ui-lg-12" [(ngModel)]="userExtra.cityId" required
+                                    [suggestions]="cities" name="city"
                                     field="name" (completeMethod)="search($event)"></p-autoComplete>
                 </div>
                 <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
