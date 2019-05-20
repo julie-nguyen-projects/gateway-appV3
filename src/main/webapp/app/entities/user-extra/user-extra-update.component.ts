@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { UserExtraService } from './user-extra.service';
-import { IUser, UserService } from 'app/core';
+import { AccountService, IUser, UserService } from 'app/core';
 import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
 
@@ -21,6 +21,8 @@ export class UserExtraUpdateComponent implements OnInit {
 
     users: IUser[];
 
+    //settingsAccount: any;
+
     cities: ICity[];
     birthdateDp: any;
 
@@ -31,10 +33,15 @@ export class UserExtraUpdateComponent implements OnInit {
         protected userService: UserService,
         protected cityService: CityService,
         protected elementRef: ElementRef,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        private accountService: AccountService
     ) {}
 
     ngOnInit() {
+        //TODO add this if we 'll use this page to modify the users there
+        /*this.accountService.identity().then(account => {
+            this.settingsAccount = this.copyAccount(account);
+        });*/
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ userExtra }) => {
             this.userExtra = userExtra;
@@ -82,6 +89,13 @@ export class UserExtraUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.userExtraService.create(this.userExtra));
         }
+        //TODO add this if we 'll use this page to modify the users there
+        /*this.settingsAccount.firstName = this.userExtra.firstName;
+        this.settingsAccount.lasrName = this.userExtra.lastName;
+        this.settingsAccount.email = this.userExtra.email;
+        this.accountService.identity(true).then(account => {
+            this.settingsAccount = this.copyAccount(account);
+        });*/
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserExtra>>) {
@@ -99,6 +113,18 @@ export class UserExtraUpdateComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    copyAccount(account) {
+        return {
+            activated: account.activated,
+            email: account.email,
+            firstName: account.firstName,
+            langKey: account.langKey,
+            lastName: account.lastName,
+            login: account.login,
+            imageUrl: account.imageUrl
+        };
     }
 
     trackUserById(index: number, item: IUser) {

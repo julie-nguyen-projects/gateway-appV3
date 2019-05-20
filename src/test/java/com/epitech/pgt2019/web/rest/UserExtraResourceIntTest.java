@@ -57,6 +57,15 @@ public class UserExtraResourceIntTest {
     private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
 
+    private static final String DEFAULT_FIRST_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_FIRST_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
+    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+
     @Autowired
     private UserExtraRepository userExtraRepository;
 
@@ -105,7 +114,10 @@ public class UserExtraResourceIntTest {
             .title(DEFAULT_TITLE)
             .birthdate(DEFAULT_BIRTHDATE)
             .picture(DEFAULT_PICTURE)
-            .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE);
+            .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
+            .firstName(DEFAULT_FIRST_NAME)
+            .lastName(DEFAULT_LAST_NAME)
+            .email(DEFAULT_EMAIL);
         // Add required entity
         User user = UserResourceIntTest.createEntity();
         user.setId("fixed-id-for-tests");
@@ -142,6 +154,9 @@ public class UserExtraResourceIntTest {
         assertThat(testUserExtra.getBirthdate()).isEqualTo(DEFAULT_BIRTHDATE);
         assertThat(testUserExtra.getPicture()).isEqualTo(DEFAULT_PICTURE);
         assertThat(testUserExtra.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
+        assertThat(testUserExtra.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
+        assertThat(testUserExtra.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testUserExtra.getEmail()).isEqualTo(DEFAULT_EMAIL);
     }
 
     @Test
@@ -176,7 +191,10 @@ public class UserExtraResourceIntTest {
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].birthdate").value(hasItem(DEFAULT_BIRTHDATE.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))));
+            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
+            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
     }
     
     @Test
@@ -192,7 +210,10 @@ public class UserExtraResourceIntTest {
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.birthdate").value(DEFAULT_BIRTHDATE.toString()))
             .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)));
+            .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
+            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
     }
 
     @Test
@@ -215,7 +236,10 @@ public class UserExtraResourceIntTest {
             .title(UPDATED_TITLE)
             .birthdate(UPDATED_BIRTHDATE)
             .picture(UPDATED_PICTURE)
-            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE);
+            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
+            .firstName(UPDATED_FIRST_NAME)
+            .lastName(UPDATED_LAST_NAME)
+            .email(UPDATED_EMAIL);
         UserExtraDTO userExtraDTO = userExtraMapper.toDto(updatedUserExtra);
 
         restUserExtraMockMvc.perform(put("/api/user-extras")
@@ -231,6 +255,9 @@ public class UserExtraResourceIntTest {
         assertThat(testUserExtra.getBirthdate()).isEqualTo(UPDATED_BIRTHDATE);
         assertThat(testUserExtra.getPicture()).isEqualTo(UPDATED_PICTURE);
         assertThat(testUserExtra.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
+        assertThat(testUserExtra.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
+        assertThat(testUserExtra.getLastName()).isEqualTo(UPDATED_LAST_NAME);
+        assertThat(testUserExtra.getEmail()).isEqualTo(UPDATED_EMAIL);
     }
 
     @Test

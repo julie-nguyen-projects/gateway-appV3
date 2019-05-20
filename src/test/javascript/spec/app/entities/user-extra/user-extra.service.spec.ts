@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new UserExtra('ID', 'AAAAAAA', currentDate, 'image/png', 'AAAAAAA');
+            elemDefault = new UserExtra('ID', 'AAAAAAA', currentDate, 'image/png', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -72,7 +72,10 @@ describe('Service Tests', () => {
                     {
                         title: 'BBBBBB',
                         birthdate: currentDate.format(DATE_FORMAT),
-                        picture: 'BBBBBB'
+                        picture: 'BBBBBB',
+                        firstName: 'BBBBBB',
+                        lastName: 'BBBBBB',
+                        email: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -96,7 +99,10 @@ describe('Service Tests', () => {
                     {
                         title: 'BBBBBB',
                         birthdate: currentDate.format(DATE_FORMAT),
-                        picture: 'BBBBBB'
+                        picture: 'BBBBBB',
+                        firstName: 'BBBBBB',
+                        lastName: 'BBBBBB',
+                        email: 'BBBBBB'
                     },
                     elemDefault
                 );

@@ -35,6 +35,15 @@ public class UserExtra implements Serializable {
     @Field("picture_content_type")
     private String pictureContentType;
 
+    @Field("first_name")
+    private String firstName;
+
+    @Field("last_name")
+    private String lastName;
+
+    @Field("email")
+    private String email;
+
     @DBRef
     @Field("user")
     private User user;
@@ -105,6 +114,45 @@ public class UserExtra implements Serializable {
         this.pictureContentType = pictureContentType;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public UserExtra firstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public UserExtra lastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserExtra email(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public User getUser() {
         return user;
     }
@@ -160,6 +208,9 @@ public class UserExtra implements Serializable {
             ", birthdate='" + getBirthdate() + "'" +
             ", picture='" + getPicture() + "'" +
             ", pictureContentType='" + getPictureContentType() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
 }
