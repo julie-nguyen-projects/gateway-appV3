@@ -6,6 +6,7 @@ import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ICity} from 'app/shared/model/city.model';
 import {UserExtraService} from 'app/entities/user-extra';
 import {JhiAlertService} from 'ng-jhipster';
+import {IUser} from 'app/core';
 
 @Component({
     selector: 'jhi-home-network',
@@ -13,8 +14,8 @@ import {JhiAlertService} from 'ng-jhipster';
     styles: []
 })
 export class HomeNetworkComponent implements OnInit {
-    selectedUser: UserExtra;
-    users: UserExtra[];
+    searchedUser: IUser;
+    users: IUser[];
 
     constructor(
         private userExtraService: UserExtraService,
@@ -22,7 +23,7 @@ export class HomeNetworkComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-
+        this.searchedUser = new UserExtra();
     }
 
     searchUsers(event: any) {

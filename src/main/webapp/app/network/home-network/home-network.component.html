@@ -1,8 +1,22 @@
 <p-tabView>
     <p-tabPanel header="Users">
-        <!-- Search bar-->
-        <p-autoComplete [(ngModel)]="selectedUser" [suggestions]="users" name="users"
-                        field="name" (completeMethod)="searchUsers($event)"></p-autoComplete>
+        <!-- Search form-->
+        <form name="userForm" role="form" novalidate (ngSubmit)="searchUsers($event)" #userForm="ngForm">
+            <div class="form-group">
+                <label class="form-control-label" for="firstname">FirstName</label>
+                <input type="text" class="form-control" pKeyFilter="alpha" id="firstname" name="firstname"
+                       [(ngModel)]="searchedUser.firstName">
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" for="lastName">LastName</label>
+                <input type="text" class="form-control" pKeyFilter="alpha" id="lastName" name="lastName"
+                       [(ngModel)]="searchedUser.lastName">
+            </div>
+        </form>
+        <button type="submit" id="search-user" class="btn btn-primary">
+            <fa-icon [icon]="'search'"></fa-icon>&nbsp;<span>Search</span>
+        </button>
 
         <!-- Results -->
 

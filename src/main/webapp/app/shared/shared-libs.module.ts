@@ -6,13 +6,13 @@ import {NgJhipsterModule} from 'ng-jhipster';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {CookieModule} from 'ngx-cookie';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AutoCompleteModule, TabViewModule} from 'primeng/primeng';
+import {AutoCompleteModule, KeyFilterModule, TabViewModule} from 'primeng/primeng';
 
 @NgModule({
     imports: [NgbModule.forRoot(), InfiniteScrollModule, CookieModule.forRoot(), FontAwesomeModule,
-        AutoCompleteModule, TabViewModule],
+        AutoCompleteModule, TabViewModule, KeyFilterModule],
     exports: [FormsModule, CommonModule, NgbModule, NgJhipsterModule, InfiniteScrollModule, FontAwesomeModule,
-        AutoCompleteModule, TabViewModule]
+        AutoCompleteModule, TabViewModule, KeyFilterModule]
 })
 export class Epikedin2SharedLibsModule {
     static forRoot() {
