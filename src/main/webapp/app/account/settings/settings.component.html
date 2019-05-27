@@ -12,6 +12,23 @@
             <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate>
 
                 <div class="form-group">
+                    <label class="form-control-label" for="field_picture">Picture</label>
+                    <div>
+                        <img [src]="'data:' + userExtra.pictureContentType + ';base64,' + userExtra.picture" style="max-height: 100px;" *ngIf="userExtra.picture" alt="userExtra image"/>
+                        <div *ngIf="userExtra.picture" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{userExtra.pictureContentType}}, {{byteSize(userExtra.picture)}}</span>
+                            <button type="button" (click)="clearInputImage('picture', 'pictureContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_picture" (change)="setFileData($event, userExtra, 'picture', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="picture" id="field_picture"
+                           [(ngModel)]="userExtra.picture" />
+                    <input type="hidden" class="form-control" name="pictureContentType" id="field_pictureContentType"
+                           [(ngModel)]="userExtra.pictureContentType" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your first name"
                            [(ngModel)]="settingsAccount.firstName" minlength=1 maxlength=50 #firstNameInput="ngModel" required>
@@ -50,6 +67,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_birthdate">Birthdate</label>
+                    <div class="input-group">
+                        <input id="field_birthdate" type="text" class="form-control" name="birthdate" ngbDatepicker  #birthdateDp="ngbDatepicker" [(ngModel)]="userExtra.birthdate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="birthdateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Your email"
                            [(ngModel)]="settingsAccount.email" minlength="5" maxlength="254" #emailInput="ngModel" email required>
@@ -72,6 +99,12 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_city">City</label>
+                    <p-autoComplete id="field_city" [(ngModel)]="userExtra.cityId" [suggestions]="cities" name="city"
+                                    field="name" (completeMethod)="search($event)"></p-autoComplete>
+                </div>
+
                 <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary">Save</button>
             </form>
         </div>
