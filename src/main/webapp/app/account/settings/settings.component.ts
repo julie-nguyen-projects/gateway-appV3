@@ -16,8 +16,9 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 export class SettingsComponent implements OnInit {
     error: string;
     success: string;
-    settingsAccount: IUser;
+    settingsAccount: any;
     userExtra: IUserExtra;
+    city: ICity;
     cities: ICity[];
     languages: any[];
 
@@ -31,18 +32,29 @@ export class SettingsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.accountService.identity().then(account => {
-            this.settingsAccount = this.copyAccount(account);
-        });
-        this.userExtraService.find(this.settingsAccount.id).subscribe(
-            res => {
-                console.log(res);
-                this.userExtra = res.body;
-            },
-            err => {
-                this.onError(err.message);
-            }
-        );
+        this.accountService
+            .identity()
+            .then(account => {
+                this.settingsAccount = this.copyAccount(account);
+            })
+            .then(() => {
+                this.userExtraService.find(this.settingsAccount.id).subscribe(
+                    res => {
+                        this.userExtra = res.body;
+                        this.cityService.find(this.userExtra.cityId).subscribe(
+                            res => {
+                                this.city = res.body;
+                            },
+                            err => {
+                                this.onError(err.message);
+                            }
+                        );
+                    },
+                    err => {
+                        this.onError(err.message);
+                    }
+                );
+            });
     }
 
     save() {
@@ -50,23 +62,28 @@ export class SettingsComponent implements OnInit {
             () => {
                 this.error = null;
                 this.success = 'OK';
-                this.accountService.identity(true).then(account => {
-                    this.settingsAccount = this.copyAccount(account);
-                });
-
-                this.userExtra.firstName = this.settingsAccount.firstName;
-                this.userExtra.lastName = this.settingsAccount.lastName;
-                this.userExtra.email = this.settingsAccount.email;
-                this.userExtraService.update(this.userExtra).subscribe(
-                    () => {
-                        this.error = null;
-                        this.success = 'OK';
-                    },
-                    () => {
-                        this.success = null;
-                        this.error = 'ERROR';
-                    }
-                );
+                this.accountService
+                    .identity(true)
+                    .then(account => {
+                        this.settingsAccount = this.copyAccount(account);
+                    })
+                    .then(() => {
+                        this.userExtra.firstName = this.settingsAccount.firstName;
+                        this.userExtra.lastName = this.settingsAccount.lastName;
+                        this.userExtra.email = this.settingsAccount.email;
+                        this.userExtra.cityId = this.city.id;
+                        this.userExtra.cityName = this.city.name;
+                        this.userExtraService.update(this.userExtra).subscribe(
+                            () => {
+                                this.error = null;
+                                this.success = 'OK';
+                            },
+                            () => {
+                                this.success = null;
+                                this.error = 'ERROR';
+                            }
+                        );
+                    });
             },
             () => {
                 this.success = null;
@@ -77,6 +94,7 @@ export class SettingsComponent implements OnInit {
 
     copyAccount(account) {
         return {
+            id: account.id,
             activated: account.activated,
             email: account.email,
             firstName: account.firstName,
