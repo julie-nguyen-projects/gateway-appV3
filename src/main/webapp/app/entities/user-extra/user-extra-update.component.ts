@@ -21,8 +21,6 @@ export class UserExtraUpdateComponent implements OnInit {
 
     users: IUser[];
 
-    // settingsAccount: any;
-
     cities: ICity[];
     birthdateDp: any;
 
@@ -38,12 +36,6 @@ export class UserExtraUpdateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        // TODO add this if we 'll use this page to modify the users there
-        /*
-        this.accountService.identity().then(account => {
-            this.settingsAccount = this.copyAccount(account);
-        });
-        */
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ userExtra }) => {
             this.userExtra = userExtra;
@@ -91,15 +83,6 @@ export class UserExtraUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.userExtraService.create(this.userExtra));
         }
-        // TODO add this if we 'll use this page to modify the users there
-        /*
-        this.settingsAccount.firstName = this.userExtra.firstName;
-        this.settingsAccount.lasrName = this.userExtra.lastName;
-        this.settingsAccount.email = this.userExtra.email;
-        this.accountService.identity(true).then(account => {
-            this.settingsAccount = this.copyAccount(account);
-        });
-        */
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserExtra>>) {
