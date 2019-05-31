@@ -42,8 +42,8 @@ export class SettingsComponent implements OnInit {
                     res => {
                         this.userExtra = res.body;
                         this.cityService.find(this.userExtra.cityId).subscribe(
-                            res => {
-                                this.city = res.body;
+                            found => {
+                                this.city = found.body;
                             },
                             err => {
                                 this.onError(err.message);
