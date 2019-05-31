@@ -13,6 +13,21 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" for="field_picture">Picture</label>
+                    <div>
+                        <img [src]="'data:' + this.userExtra.pictureContentType + ';base64,' + this.userExtra.picture" style="max-height: 100px;" *ngIf="userExtra.picture" alt="userExtra image"/>
+                        <div *ngIf="this.userExtra.picture" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{this.userExtra.pictureContentType}}, {{byteSize(this.userExtra.picture)}}</span>
+                            <button type="button" (click)="clearInputImage('picture', 'pictureContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_picture" (change)="setFileData($event, userExtra, 'picture', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="picture" id="field_picture"
+                           [(ngModel)]="this.userExtra.picture" />
+                    <input type="hidden" class="form-control" name="pictureContentType" id="field_pictureContentType"
+                           [(ngModel)]="this.userExtra.pictureContentType" />
                     <label class="form-control-label">Login</label>
                     <input type="text" class="form-control" name="login" #loginInput="ngModel"
                         [(ngModel)]="user.login" required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
