@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new UserExtra('ID', 'AAAAAAA', currentDate);
+            elemDefault = new UserExtra('ID', 'AAAAAAA', currentDate, 'image/png', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -71,7 +71,11 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         title: 'BBBBBB',
-                        birthdate: currentDate.format(DATE_FORMAT)
+                        birthdate: currentDate.format(DATE_FORMAT),
+                        picture: 'BBBBBB',
+                        firstName: 'BBBBBB',
+                        lastName: 'BBBBBB',
+                        email: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -94,7 +98,11 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         title: 'BBBBBB',
-                        birthdate: currentDate.format(DATE_FORMAT)
+                        birthdate: currentDate.format(DATE_FORMAT),
+                        picture: 'BBBBBB',
+                        firstName: 'BBBBBB',
+                        lastName: 'BBBBBB',
+                        email: 'BBBBBB'
                     },
                     elemDefault
                 );

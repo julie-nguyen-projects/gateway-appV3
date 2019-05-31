@@ -29,6 +29,21 @@ public class UserExtra implements Serializable {
     @Field("birthdate")
     private LocalDate birthdate;
 
+    @Field("picture")
+    private byte[] picture;
+
+    @Field("picture_content_type")
+    private String pictureContentType;
+
+    @Field("first_name")
+    private String firstName;
+
+    @Field("last_name")
+    private String lastName;
+
+    @Field("email")
+    private String email;
+
     @DBRef
     @Field("user")
     private User user;
@@ -71,6 +86,71 @@ public class UserExtra implements Serializable {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public UserExtra picture(byte[] picture) {
+        this.picture = picture;
+        return this;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public String getPictureContentType() {
+        return pictureContentType;
+    }
+
+    public UserExtra pictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
+        return this;
+    }
+
+    public void setPictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public UserExtra firstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public UserExtra lastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserExtra email(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public User getUser() {
@@ -126,6 +206,11 @@ public class UserExtra implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             ", birthdate='" + getBirthdate() + "'" +
+            ", picture='" + getPicture() + "'" +
+            ", pictureContentType='" + getPictureContentType() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
 }

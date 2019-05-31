@@ -63,6 +63,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'experience',
                 loadChildren: './ExperienceService/experience/experience.module#ExperienceServiceExperienceModule'
+            },
+            {
+                path: 'user-extra',
+                loadChildren: './user-extra/user-extra.module#Epikedin2UserExtraModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

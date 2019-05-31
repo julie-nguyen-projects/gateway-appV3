@@ -17,6 +17,10 @@
             <th><span>ID</span></th>
             <th><span>Title</span></th>
             <th><span>Birthdate</span></th>
+            <th><span>Picture</span></th>
+            <th><span>First Name</span></th>
+            <th><span>Last Name</span></th>
+            <th><span>Email</span></th>
             <th><span>User</span></th>
             <th><span>City</span></th>
             <th></th>
@@ -27,6 +31,15 @@
                 <td><a [routerLink]="['/user-extra', userExtra.id, 'view' ]">{{userExtra.id}}</a></td>
                 <td>{{userExtra.title}}</td>
                 <td>{{userExtra.birthdate | date:'mediumDate'}}</td>
+                <td>
+                    <a *ngIf="userExtra.picture" (click)="openFile(userExtra.pictureContentType, userExtra.picture)">
+                        <img [src]="'data:' + userExtra.pictureContentType + ';base64,' + userExtra.picture" style="max-height: 30px;" alt="userExtra image"/>
+                    </a>
+                    <span *ngIf="userExtra.picture">{{userExtra.pictureContentType}}, {{byteSize(userExtra.picture)}}</span>
+                </td>
+                <td>{{userExtra.firstName}}</td>
+                <td>{{userExtra.lastName}}</td>
+                <td>{{userExtra.email}}</td>
                 <td>
                     {{userExtra.userLogin}}
                 </td>
