@@ -105,6 +105,11 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_city">City</label>
+                    <p-autoComplete id="field_city" [(ngModel)]="this.city" field="name" [suggestions]="cities" name="city"
+                                    field="name" (completeMethod)="search($event)"></p-autoComplete>
+                </div>
                 <div class="form-check">
                     <label class="form-check-label" for="activated">
                         <input class="form-check-input" [disabled]="user.id === null" type="checkbox" id="activated" name="activated" [(ngModel)]="user.activated">
