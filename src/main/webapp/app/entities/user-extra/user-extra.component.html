@@ -57,12 +57,6 @@
                             <span class="d-none d-md-inline">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/user-extra', userExtra.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
-                        </button>
-                        <button type="submit"
                                 [routerLink]="['/', 'user-extra', { outlets: { popup: userExtra.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
