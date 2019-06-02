@@ -1,0 +1,30 @@
+<!-- Search form-->
+<form name="schoolForm" role="form" novalidate (ngSubmit)="searchSchools()" #schoolForm="ngForm">
+    <div class="form-group">
+        <label class="form-control-label" for="schoolName">School's name </label>
+        <input type="text" class="form-control" pKeyFilter="alpha" id="schoolName" name="schoolName"
+               [(ngModel)]="searchedSchool.name">
+    </div>
+
+    <button type="submit" id="search-school" class="btn btn-primary" >
+        <fa-icon [icon]="'search'"></fa-icon>&nbsp;<span>Search</span>
+    </button>
+</form>
+
+<!-- Results -->
+<div class="table-responsive" *ngIf="schools">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><span>Name</span></th>
+            <th><span>City</span></th>
+        </tr>
+        </thead>
+        <tbody *ngIf="schools">
+        <tr *ngFor="let school of schools; trackBy: trackIdentitySchool">
+            <td>{{school.name}}</td>
+            <td>{{school.cityExpName}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

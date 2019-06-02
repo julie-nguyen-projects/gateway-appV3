@@ -1,0 +1,30 @@
+<!-- Search form-->
+<form name="companyForm" role="form" novalidate (ngSubmit)="searchCompanies()" #companyForm="ngForm">
+    <div class="form-group">
+        <label class="form-control-label" for="companyName">Company's name </label>
+        <input type="text" class="form-control" pKeyFilter="alpha" id="companyName" name="companyName"
+               [(ngModel)]="searchedCompany.name">
+    </div>
+
+    <button type="submit" id="search-company" class="btn btn-primary" >
+        <fa-icon [icon]="'search'"></fa-icon>&nbsp;<span>Search</span>
+    </button>
+</form>
+
+<!-- Results -->
+<div class="table-responsive" *ngIf="companies">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><span>Name</span></th>
+            <th><span>City</span></th>
+        </tr>
+        </thead>
+        <tbody *ngIf="companies">
+        <tr *ngFor="let company of companies; trackBy: trackIdentityCompany">
+            <td>{{company.name}}</td>
+            <td>{{company.cityExpName}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
