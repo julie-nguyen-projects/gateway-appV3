@@ -1,6 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-success col-md-12"
+                    style="margin: 5px" [routerLink]="['/admin/user-management']">
+                Administration of users
+            </button>
             <p-fieldset legend="Research form" [toggleable]="true">
                 <!-- Search form-->
                 <form name="userForm" role="form" novalidate (ngSubmit)="searchUsers()" #userForm="ngForm">
