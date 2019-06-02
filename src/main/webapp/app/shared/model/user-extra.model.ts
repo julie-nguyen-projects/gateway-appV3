@@ -13,8 +13,6 @@ export interface IUserExtra {
     userId?: string;
     cityName?: string;
     cityId?: string;
-    firstName?: string;
-    lastName?: string;
 }
 
 export class UserExtra implements IUserExtra {
@@ -30,8 +28,6 @@ export class UserExtra implements IUserExtra {
         public userLogin?: string,
         public userId?: string,
         public cityName?: string,
-        public cityId?: string,
-        public firstName?: string,
-        public lastName?: string
+        public cityId?: string
     ) {}
 }
