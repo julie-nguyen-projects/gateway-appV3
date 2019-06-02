@@ -109,4 +109,18 @@ public class UserExtraResource {
         userExtraService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
+
+    /**
+     * GET /user-extras/nameOrFirstNameContains/:firstname/:lastname : get users which name or firstname
+     * contain the text passed in parameters
+     * @param firstname : firstname must contains this text
+     * @param lastname : lastname must contains this text
+     * @return : the ResponseEntity with status 200 (OK) and found users in the body
+     */
+    @GetMapping("/user-extras/nameOrFirstNameContains/{firstname}/{lastname}")
+    public ResponseEntity<List<UserExtraDTO>> getUsersWithFirstNameOrNameContains(@PathVariable String firstname,
+                                                                                  @PathVariable String lastname) {
+        log.debug("REST request to get Users which firstname or name contains : {}", firstname, lastname);
+        return ResponseEntity.ok().body(userExtraService.findUsersNameContains(firstname, lastname));
+    }
 }

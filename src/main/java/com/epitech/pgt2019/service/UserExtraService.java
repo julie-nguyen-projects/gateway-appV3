@@ -2,6 +2,7 @@ package com.epitech.pgt2019.service;
 
 import com.epitech.pgt2019.domain.UserExtra;
 import com.epitech.pgt2019.repository.UserExtraRepository;
+import com.epitech.pgt2019.service.dto.UserDTO;
 import com.epitech.pgt2019.service.dto.UserExtraDTO;
 import com.epitech.pgt2019.service.mapper.UserExtraMapper;
 import org.slf4j.Logger;
@@ -26,9 +27,13 @@ public class UserExtraService {
 
     private final UserExtraMapper userExtraMapper;
 
-    public UserExtraService(UserExtraRepository userExtraRepository, UserExtraMapper userExtraMapper) {
+    private final UserService userService;
+
+    public UserExtraService(UserExtraRepository userExtraRepository, UserExtraMapper userExtraMapper,
+                            UserService userService) {
         this.userExtraRepository = userExtraRepository;
         this.userExtraMapper = userExtraMapper;
+        this.userService = userService;
     }
 
     /**
@@ -77,5 +82,24 @@ public class UserExtraService {
     public void delete(String id) {
         log.debug("Request to delete UserExtra : {}", id);
         userExtraRepository.deleteById(id);
+    }
+
+    /**
+     * Get users which firstname or lastname contains research parameters
+     * @param firstname : text searched in firstname
+     * @param lastname : text searched in lastname
+     * @return : found users
+     */
+    public List<UserExtraDTO> findUsersNameContains(String firstname, String lastname) {
+        // Retrieves users
+        List<UserDTO> usersDto = userService.findUsersNameContains(firstname, lastname);
+
+        // Stores ids
+        List<String> ids = usersDto.stream().map(UserDTO::getId).collect(Collectors.toList());
+
+        // Retrieves associated Users extras
+        return userExtraRepository.findByIdIn(ids).stream()
+        .map(userExtraMapper::toDto)
+        .collect(Collectors.toCollection(LinkedList::new));
     }
 }

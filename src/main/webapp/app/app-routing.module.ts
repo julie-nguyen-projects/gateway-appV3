@@ -13,6 +13,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
                     path: 'admin',
                     loadChildren: './admin/admin.module#Epikedin2AdminModule'
                 },
+                {
+                    path: 'network',
+                    loadChildren: './network/network.module#NetworkModule'
+                },
                 ...LAYOUT_ROUTES
             ],
             { useHash: true, enableTracing: DEBUG_INFO_ENABLED }

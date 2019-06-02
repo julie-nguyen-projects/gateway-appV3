@@ -73,8 +73,9 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_city">City</label>
                     <p-autoComplete class="ui-g-12 ui-lg-12" [(ngModel)]="userExtra.cityId" required
-                                    [suggestions]="cities" name="city"
-                                    field="name" (completeMethod)="search($event)"></p-autoComplete>
+                                    [suggestions]="cities" name="city" id="field_city"
+                                    field="name" (completeMethod)="search($event)"
+                                    [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-autoComplete>
                 </div>
                 <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
                     <small class="form-text text-danger"

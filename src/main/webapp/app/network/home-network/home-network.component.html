@@ -1,0 +1,53 @@
+<p-tabView>
+    <p-tabPanel header="Users">
+        <!-- Search form-->
+        <form name="userForm" role="form" novalidate (ngSubmit)="searchUsers(userForm)" #userForm="ngForm">
+            <div class="form-group">
+                <label class="form-control-label" for="firstname">FirstName</label>
+                <input type="text" class="form-control" pKeyFilter="alpha" id="firstname" name="firstname"
+                       [(ngModel)]="searchedUser.firstName">
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label" for="lastName">LastName</label>
+                <input type="text" class="form-control" pKeyFilter="alpha" id="lastName" name="lastName"
+                       [(ngModel)]="searchedUser.lastName">
+            </div>
+
+            <button type="submit" id="search-user" class="btn btn-primary" >
+                <fa-icon [icon]="'search'"></fa-icon>&nbsp;<span>Search</span>
+            </button>
+        </form>
+
+        <!-- Results -->
+        <div class="table-responsive" *ngIf="users">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><span>Picture</span></th>
+                    <th><span>FirstName</span></th>
+                    <th><span>LastName</span></th>
+                    <th><span>Title</span></th>
+                    <th><span>City</span></th>
+                </tr>
+                </thead>
+                <tbody *ngIf="users">
+                <tr *ngFor="let user of users; trackBy: trackIdentity">
+                    <td>TODO</td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.title}}</td>
+                    <td>{{user.cityName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </p-tabPanel>
+    <p-tabPanel header="Companies">
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    </p-tabPanel>
+    <p-tabPanel header="Schools" leftIcon="pi pi-user" rightIcon="pi pi-star">
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    </p-tabPanel>
+</p-tabView>

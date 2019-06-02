@@ -15,6 +15,8 @@ public interface UserExtraMapper extends EntityMapper<UserExtraDTO, UserExtra> {
     @Mapping(source = "user.login", target = "userLogin")
     @Mapping(source = "city.id", target = "cityId")
     @Mapping(source = "city.name", target = "cityName")
+    @Mapping(source = "user.firstName", target = "firstName")
+    @Mapping(source = "user.lastName", target = "lastName")
     UserExtraDTO toDto(UserExtra userExtra);
 
     @Mapping(source = "userId", target = "user")

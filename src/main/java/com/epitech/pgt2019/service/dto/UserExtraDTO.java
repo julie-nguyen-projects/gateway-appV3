@@ -1,7 +1,7 @@
 package com.epitech.pgt2019.service.dto;
-import java.time.LocalDate;
-import javax.validation.constraints.*;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -18,12 +18,12 @@ public class UserExtraDTO implements Serializable {
     private byte[] picture;
 
     private String pictureContentType;
+
     private String firstName;
 
     private String lastName;
 
     private String email;
-
 
     private String userId;
 
@@ -81,14 +81,6 @@ public class UserExtraDTO implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -127,6 +119,14 @@ public class UserExtraDTO implements Serializable {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override

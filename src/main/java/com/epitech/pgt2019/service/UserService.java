@@ -10,6 +10,7 @@ import com.epitech.pgt2019.repository.UserRepository;
 import com.epitech.pgt2019.security.AuthoritiesConstants;
 import com.epitech.pgt2019.security.SecurityUtils;
 import com.epitech.pgt2019.service.dto.UserDTO;
+import com.epitech.pgt2019.service.mapper.UserMapper;
 import com.epitech.pgt2019.service.util.RandomUtil;
 import com.epitech.pgt2019.web.rest.errors.*;
 
@@ -45,14 +46,17 @@ public class UserService {
 
     private final UserExtraRepository userExtraRepository;
 
+    private final UserMapper userMapper;
+
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
                        AuthorityRepository authorityRepository, CacheManager cacheManager,
-                       UserExtraRepository userExtraRepository) {
+                       UserExtraRepository userExtraRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
         this.userExtraRepository = userExtraRepository;
+        this.userMapper = userMapper;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -303,5 +307,12 @@ public class UserService {
     private void clearUserCaches(User user) {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
+    }
+
+    public List<UserDTO> findUsersNameContains(String firstname, String lastname) {
+        return userRepository.findByFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(firstname, lastname)
+            .stream()
+            .map(userMapper::userToUserDTO)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 }
