@@ -1,7 +1,7 @@
 package com.epitech.pgt2019.service.dto;
-import java.time.LocalDate;
-import javax.validation.constraints.*;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -15,7 +15,6 @@ public class UserExtraDTO implements Serializable {
 
     private LocalDate birthdate;
 
-
     private String userId;
 
     private String userLogin;
@@ -23,6 +22,10 @@ public class UserExtraDTO implements Serializable {
     private String cityId;
 
     private String cityName;
+
+    private String firstName;
+
+    private String lastName;
 
     public String getId() {
         return id;
@@ -80,6 +83,22 @@ public class UserExtraDTO implements Serializable {
         this.cityName = cityName;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,13 +123,15 @@ public class UserExtraDTO implements Serializable {
     @Override
     public String toString() {
         return "UserExtraDTO{" +
-            "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", birthdate='" + getBirthdate() + "'" +
-            ", user=" + getUserId() +
-            ", user='" + getUserLogin() + "'" +
-            ", city=" + getCityId() +
-            ", city='" + getCityName() + "'" +
-            "}";
+            "id='" + id + '\'' +
+            ", title='" + title + '\'' +
+            ", birthdate=" + birthdate +
+            ", userId='" + userId + '\'' +
+            ", userLogin='" + userLogin + '\'' +
+            ", cityId='" + cityId + '\'' +
+            ", cityName='" + cityName + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
     }
 }

@@ -6,7 +6,7 @@ import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ICity} from 'app/shared/model/city.model';
 import {UserExtraService} from 'app/entities/user-extra';
 import {JhiAlertService} from 'ng-jhipster';
-import {IUser} from 'app/core';
+import {IUser, User} from 'app/core';
 
 @Component({
     selector: 'jhi-home-network',
@@ -15,7 +15,7 @@ import {IUser} from 'app/core';
 })
 export class HomeNetworkComponent implements OnInit {
     searchedUser: IUser;
-    users: IUser[];
+    users: IUserExtra[];
 
     constructor(
         private userExtraService: UserExtraService,
@@ -32,14 +32,18 @@ export class HomeNetworkComponent implements OnInit {
      */
     searchUsers(event: any) {
         this.userExtraService
-            .getUsersByNameOrFirstNameContains(event.form.controls.firstname.value,
-                event.form.controls.lastName.value)
-            .pipe(
+            .getUsersByNameOrFirstNameContains(
+                this.searchedUser.firstName,
+                this.searchedUser.lastName
+            ).pipe(
                 filter((mayBeOk: HttpResponse<IUserExtra[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IUserExtra[]>) => response.body)
-            )
-            .subscribe((res: IUserExtra[]) => { this.users = res; },
+            ).subscribe((res: IUserExtra[]) => { this.users = res; },
                 (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    trackIdentity(index, item: User) {
+        return item.id;
     }
 
     protected onError(errorMessage: string) {

@@ -20,6 +20,24 @@
         </form>
 
         <!-- Results -->
+        <div class="table-responsive" *ngIf="users">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><span>FirstName</span></th>
+                    <th><span>LastName</span></th>
+                    <th><span>City</span></th>
+                </tr>
+                </thead>
+                <tbody *ngIf="users">
+                <tr *ngFor="let user of users; trackBy: trackIdentity">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.cityName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
     </p-tabPanel>
     <p-tabPanel header="Companies">
