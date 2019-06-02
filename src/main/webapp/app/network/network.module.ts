@@ -7,6 +7,8 @@ import {networkState} from 'app/network/network.route';
 import { SchoolNetworkComponent } from './school-network/school-network.component';
 import { CompanyNetworkComponent } from './company-network/company-network.component';
 import { UserNetworkComponent } from './user-network/user-network.component';
+import { CompanyNetworkViewComponent } from './company-network/company-network-view.component';
+import { SchoolNetworkViewComponent } from './school-network/school-network-view.component';
 
 @NgModule({
     imports: [
@@ -14,7 +16,8 @@ import { UserNetworkComponent } from './user-network/user-network.component';
         Epikedin2SharedModule,
         RouterModule.forChild(networkState)
     ],
-    declarations: [HomeNetworkComponent, SchoolNetworkComponent, CompanyNetworkComponent, UserNetworkComponent],
+    declarations: [HomeNetworkComponent, SchoolNetworkComponent, CompanyNetworkComponent,
+        UserNetworkComponent, CompanyNetworkViewComponent, SchoolNetworkViewComponent],
     entryComponents: [],
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
