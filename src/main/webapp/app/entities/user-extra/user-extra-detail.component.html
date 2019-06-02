@@ -13,6 +13,27 @@
                 <dd>
                     <span>{{userExtra.birthdate}}</span>
                 </dd>
+                <dt><span>Picture</span></dt>
+                <dd>
+                    <div *ngIf="userExtra.picture">
+                        <a (click)="openFile(userExtra.pictureContentType, userExtra.picture)">
+                            <img [src]="'data:' + userExtra.pictureContentType + ';base64,' + userExtra.picture" style="max-width: 100%;" alt="userExtra image"/>
+                        </a>
+                        {{userExtra.pictureContentType}}, {{byteSize(userExtra.picture)}}
+                    </div>
+                </dd>
+                <dt><span>First Name</span></dt>
+                <dd>
+                    <span>{{userExtra.firstName}}</span>
+                </dd>
+                <dt><span>Last Name</span></dt>
+                <dd>
+                    <span>{{userExtra.lastName}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{userExtra.email}}</span>
+                </dd>
                 <dt><span>User</span></dt>
                 <dd>
                     {{userExtra.userLogin}}

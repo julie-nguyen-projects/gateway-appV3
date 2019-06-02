@@ -24,6 +24,38 @@
                         </span>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_picture">Picture</label>
+                    <div>
+                        <img [src]="'data:' + userExtra.pictureContentType + ';base64,' + userExtra.picture" style="max-height: 100px;" *ngIf="userExtra.picture" alt="userExtra image"/>
+                        <div *ngIf="userExtra.picture" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{userExtra.pictureContentType}}, {{byteSize(userExtra.picture)}}</span>
+                            <button type="button" (click)="clearInputImage('picture', 'pictureContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_picture" (change)="setFileData($event, userExtra, 'picture', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="picture" id="field_picture"
+                        [(ngModel)]="userExtra.picture" />
+                    <input type="hidden" class="form-control" name="pictureContentType" id="field_pictureContentType"
+                        [(ngModel)]="userExtra.pictureContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_firstName">First Name</label>
+                    <input type="text" class="form-control" name="firstName" id="field_firstName"
+                        [(ngModel)]="userExtra.firstName" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastName">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" id="field_lastName"
+                        [(ngModel)]="userExtra.lastName" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="userExtra.email" />
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_user">User</label>
@@ -40,8 +72,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_city">City</label>
-                    <p-autoComplete [(ngModel)]="userExtra.cityId" [suggestions]="cities" name="city"
-                                    id="field_city"
+                    <p-autoComplete class="ui-g-12 ui-lg-12" [(ngModel)]="userExtra.cityId" required
+                                    [suggestions]="cities" name="city" id="field_city"
                                     field="name" (completeMethod)="search($event)"
                                     [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-autoComplete>
                 </div>
