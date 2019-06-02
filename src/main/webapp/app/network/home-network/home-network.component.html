@@ -1,7 +1,7 @@
 <p-tabView>
     <p-tabPanel header="Users">
         <!-- Search form-->
-        <form name="userForm" role="form" novalidate (ngSubmit)="searchUsers(userForm)" #userForm="ngForm">
+        <form name="userForm" role="form" novalidate (ngSubmit)="searchUsers()" #userForm="ngForm">
             <div class="form-group">
                 <label class="form-control-label" for="firstname">FirstName</label>
                 <input type="text" class="form-control" pKeyFilter="alpha" id="firstname" name="firstname"
@@ -45,7 +45,36 @@
 
     </p-tabPanel>
     <p-tabPanel header="Companies">
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        <!-- Search form-->
+        <form name="companyForm" role="form" novalidate (ngSubmit)="searchCompanies()" #companyForm="ngForm">
+            <div class="form-group">
+                <label class="form-control-label" for="companyName">Company's name </label>
+                <input type="text" class="form-control" pKeyFilter="alpha" id="companyName" name="companyName"
+                       [(ngModel)]="searchedCompany.name">
+            </div>
+
+            <button type="submit" id="search-company" class="btn btn-primary" >
+                <fa-icon [icon]="'search'"></fa-icon>&nbsp;<span>Search</span>
+            </button>
+        </form>
+
+        <!-- Results -->
+        <div class="table-responsive" *ngIf="companies">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><span>Name</span></th>
+                    <th><span>City</span></th>
+                </tr>
+                </thead>
+                <tbody *ngIf="companies">
+                <tr *ngFor="let company of companies; trackBy: trackIdentityCompany">
+                    <td>{{company.name}}</td>
+                    <td>{{company.cityExpName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </p-tabPanel>
     <p-tabPanel header="Schools" leftIcon="pi pi-user" rightIcon="pi pi-star">
         After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
