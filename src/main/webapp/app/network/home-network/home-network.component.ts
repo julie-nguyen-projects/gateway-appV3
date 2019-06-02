@@ -26,6 +26,10 @@ export class HomeNetworkComponent implements OnInit {
         this.searchedUser = new UserExtra();
     }
 
+    /**
+     * Search users which firstname and lastname contain form values
+     * @param event : form values
+     */
     searchUsers(event: any) {
         this.userExtraService
             .getUsersByNameOrFirstNameContains(event.form.controls.firstname.value,
@@ -34,10 +38,8 @@ export class HomeNetworkComponent implements OnInit {
                 filter((mayBeOk: HttpResponse<IUserExtra[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IUserExtra[]>) => response.body)
             )
-            .subscribe((res: IUserExtra[]) => {
-                (this.users = res);
-                console.log(this.users);
-            }, (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IUserExtra[]) => { this.users = res; },
+                (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     protected onError(errorMessage: string) {
