@@ -84,12 +84,21 @@ public class UserExtraService {
         userExtraRepository.deleteById(id);
     }
 
+    /**
+     * Get users which firstname or lastname contains research parameters
+     * @param firstname : text searched in firstname
+     * @param lastname : text searched in lastname
+     * @return : found users
+     */
     public List<UserExtraDTO> findUsersNameContains(String firstname, String lastname) {
         // Retrieves users
         List<UserDTO> usersDto = userService.findUsersNameContains(firstname, lastname);
 
+        // Stores ids
+        List<String> ids = usersDto.stream().map(UserDTO::getId).collect(Collectors.toList());
+
         // Retrieves associated Users extras
-        return userExtraRepository.findByUserIn(usersDto).stream()
+        return userExtraRepository.findByIdIn(ids).stream()
         .map(userExtraMapper::toDto)
         .collect(Collectors.toCollection(LinkedList::new));
     }
