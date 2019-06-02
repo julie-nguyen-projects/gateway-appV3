@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
-import { ICompany } from 'app/shared/model/ExperienceService/company.model';
-import {IUserExtra} from "app/shared/model/user-extra.model";
+import {SERVER_API_URL} from 'app/app.constants';
+import {createRequestOption} from 'app/shared';
+import {ICompany} from 'app/shared/model/ExperienceService/company.model';
 
 type EntityResponseType = HttpResponse<ICompany>;
 type EntityArrayResponseType = HttpResponse<ICompany[]>;
