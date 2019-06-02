@@ -1,42 +1,52 @@
-<!-- Search form-->
-<form name="userForm" role="form" novalidate (ngSubmit)="searchUsers()" #userForm="ngForm">
-    <div class="form-group">
-        <label class="form-control-label" for="firstname">FirstName</label>
-        <input type="text" class="form-control" pKeyFilter="alpha" id="firstname" name="firstname"
-               [(ngModel)]="searchedUser.firstName">
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p-fieldset legend="Research form" [toggleable]="true">
+                <!-- Search form-->
+                <form name="userForm" role="form" novalidate (ngSubmit)="searchUsers()" #userForm="ngForm">
+                    <div class="form-group">
+                        <label class="form-control-label" for="firstname">FirstName</label>
+                        <input type="text" class="form-control" pKeyFilter="alpha" id="firstname" name="firstname"
+                               [(ngModel)]="searchedUser.firstName">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="lastName">LastName</label>
+                        <input type="text" class="form-control" pKeyFilter="alpha" id="lastName" name="lastName"
+                               [(ngModel)]="searchedUser.lastName">
+                    </div>
+
+                    <button type="submit" id="search-user" class="btn btn-primary" >
+                        <fa-icon [icon]="'search'"></fa-icon>&nbsp;<span>Search</span>
+                    </button>
+                </form>
+            </p-fieldset>
+        </div>
+
+        <div class="col-md-9">
+            <!-- Results -->
+            <div class="table-responsive" *ngIf="users">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span>Picture</span></th>
+                        <th><span>FirstName</span></th>
+                        <th><span>LastName</span></th>
+                        <th><span>Title</span></th>
+                        <th><span>City</span></th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="users">
+                    <tr *ngFor="let user of users; trackBy: trackIdentity">
+                        <td>TODO</td>
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.title}}</td>
+                        <td>{{user.cityName}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label class="form-control-label" for="lastName">LastName</label>
-        <input type="text" class="form-control" pKeyFilter="alpha" id="lastName" name="lastName"
-               [(ngModel)]="searchedUser.lastName">
-    </div>
-
-    <button type="submit" id="search-user" class="btn btn-primary" >
-        <fa-icon [icon]="'search'"></fa-icon>&nbsp;<span>Search</span>
-    </button>
-</form>
-
-<!-- Results -->
-<div class="table-responsive" *ngIf="users">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th><span>Picture</span></th>
-            <th><span>FirstName</span></th>
-            <th><span>LastName</span></th>
-            <th><span>Title</span></th>
-            <th><span>City</span></th>
-        </tr>
-        </thead>
-        <tbody *ngIf="users">
-        <tr *ngFor="let user of users; trackBy: trackIdentity">
-            <td>TODO</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.title}}</td>
-            <td>{{user.cityName}}</td>
-        </tr>
-        </tbody>
-    </table>
 </div>

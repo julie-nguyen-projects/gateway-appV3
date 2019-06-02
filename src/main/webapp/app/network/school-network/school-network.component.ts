@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {filter, map} from 'rxjs/operators';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ISchool, School} from 'app/shared/model/ExperienceService/school.model';
 import {SchoolService} from 'app/entities/ExperienceService/school';
 import {JhiAlertService} from 'ng-jhipster';
-import {Company} from 'app/shared/model/ExperienceService/company.model';
 
 @Component({
     selector: 'jhi-school-network',
@@ -40,5 +39,19 @@ export class SchoolNetworkComponent implements OnInit {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    getAllSchools() {
+        this.schoolService.query()
+            .pipe(
+                filter((res: HttpResponse<ISchool[]>) => res.ok),
+                map((res: HttpResponse<ISchool[]>) => res.body)
+            )
+            .subscribe(
+                (res: ISchool[]) => {
+                    this.schools = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 }

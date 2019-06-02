@@ -40,4 +40,18 @@ export class CompanyNetworkComponent implements OnInit {
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+
+    getAllCompanies() {
+        this.companyService.query()
+            .pipe(
+                filter((res: HttpResponse<ICompany[]>) => res.ok),
+                map((res: HttpResponse<ICompany[]>) => res.body)
+            )
+            .subscribe(
+                (res: ICompany[]) => {
+                    this.companies = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
 }
