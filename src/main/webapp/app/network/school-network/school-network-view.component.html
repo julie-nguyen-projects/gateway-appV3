@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="school">
-            <h2><span>School</span> {{school.id}}</h2>
+            <h2><span>School</span> {{school.name}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -11,9 +11,7 @@
                 </dd>
                 <dt><span>City Exp</span></dt>
                 <dd>
-                    <div *ngIf="school.cityExpId">
-                        <a [routerLink]="['/city-exp', school.cityExpId, 'view']">{{school.cityExpName}}</a>
-                    </div>
+                    <div *ngIf="school.cityExpId">{{school.cityExpName}}</div>
                 </dd>
             </dl>
 

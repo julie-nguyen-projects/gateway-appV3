@@ -4,6 +4,10 @@
             <button class="btn btn-dark col-md-12" (click)="getAllSchools()" style="margin: 5px">
                 List all the schools
             </button>
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-success col-md-12"
+                    style="margin: 5px" [routerLink]="['/school']">
+                Administration of schools
+            </button>
             <p-fieldset legend="Research form" [toggleable]="true">
                 <!-- Search form-->
                 <form name="schoolForm" role="form" novalidate (ngSubmit)="searchSchools()" #schoolForm="ngForm">
@@ -28,12 +32,23 @@
                     <tr>
                         <th><span>Name</span></th>
                         <th><span>City</span></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody *ngIf="schools">
                     <tr *ngFor="let school of schools; trackBy: trackIdentitySchool">
                         <td>{{school.name}}</td>
                         <td>{{school.cityExpName}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['network-school', school.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

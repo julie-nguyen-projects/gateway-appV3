@@ -1,19 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="school">
-            <h2><span>School</span> {{school.id}}</h2>
+        <div *ngIf="company">
+            <h2><span>Company</span> {{company.name}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span>Name</span></dt>
                 <dd>
-                    <span>{{school.name}}</span>
+                    <span>{{company.name}}</span>
                 </dd>
                 <dt><span>City Exp</span></dt>
                 <dd>
-                    <div *ngIf="school.cityExpId">
-                        <a [routerLink]="['/city-exp', school.cityExpId, 'view']">{{school.cityExpName}}</a>
-                    </div>
+                    <div *ngIf="company.cityExpId">{{company.cityExpName}}</div>
                 </dd>
             </dl>
 
@@ -23,8 +21,8 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
             </button>
 
-            <button type="button" *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                    [routerLink]="['/school', school.id, 'edit']"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                    [routerLink]="['/company', company.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
