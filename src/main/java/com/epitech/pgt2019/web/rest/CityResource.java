@@ -118,13 +118,13 @@ public class CityResource {
     }
 
     /**
-     * GET  /cities : get all the cities.
+     * GET  /cities : get all the cities which name starts with query .
      *
      * @return the ResponseEntity with status 200 (OK) and the list of cities in body
      */
     @GetMapping("/cities/nameStartsWith/{query}")
-    public ResponseEntity<List<CityDTO>> getAllCities(@PathVariable String query) {
-        log.debug("REST request to get all Cities");
+    public ResponseEntity<List<CityDTO>> getCitiesNameStartsWith(@PathVariable String query) {
+        log.debug("REST request to get Cities which name starts with: {}", query);
         List<CityDTO> cities = cityService.findCitiesNameStartsWith(query);
         return ResponseEntity.ok().body(cities);
     }

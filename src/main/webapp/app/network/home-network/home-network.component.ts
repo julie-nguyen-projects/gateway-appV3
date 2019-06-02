@@ -28,12 +28,16 @@ export class HomeNetworkComponent implements OnInit {
 
     searchUsers(event: any) {
         this.userExtraService
-            .getUsersByNameOrFirstNameContains(event.query)
+            .getUsersByNameOrFirstNameContains(event.form.controls.firstname.value,
+                event.form.controls.lastName.value)
             .pipe(
                 filter((mayBeOk: HttpResponse<IUserExtra[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IUserExtra[]>) => response.body)
             )
-            .subscribe((res: IUserExtra[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IUserExtra[]) => {
+                (this.users = res);
+                console.log(this.users);
+            }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     protected onError(errorMessage: string) {
