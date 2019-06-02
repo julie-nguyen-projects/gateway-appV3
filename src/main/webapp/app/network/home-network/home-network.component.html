@@ -24,15 +24,19 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th><span>Picture</span></th>
                     <th><span>FirstName</span></th>
                     <th><span>LastName</span></th>
+                    <th><span>Title</span></th>
                     <th><span>City</span></th>
                 </tr>
                 </thead>
                 <tbody *ngIf="users">
                 <tr *ngFor="let user of users; trackBy: trackIdentity">
+                    <td>TODO</td>
                     <td>{{user.firstName}}</td>
                     <td>{{user.lastName}}</td>
+                    <td>{{user.title}}</td>
                     <td>{{user.cityName}}</td>
                 </tr>
                 </tbody>
