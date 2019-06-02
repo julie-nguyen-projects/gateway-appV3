@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ICompany } from 'app/shared/model/ExperienceService/company.model';
+import {IUserExtra} from "app/shared/model/user-extra.model";
 
 type EntityResponseType = HttpResponse<ICompany>;
 type EntityArrayResponseType = HttpResponse<ICompany[]>;
@@ -34,5 +35,9 @@ export class CompanyService {
 
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    getByNameContains(name: string) {
+        return this.http.get<ICompany[]>(`${this.resourceUrl}/nameContains/${name}`, { observe: 'response' });
     }
 }
