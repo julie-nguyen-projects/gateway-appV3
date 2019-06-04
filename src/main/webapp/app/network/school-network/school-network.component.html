@@ -26,6 +26,13 @@
 
         <!-- Results -->
         <div class="col-md-9">
+            <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-school"
+                    [routerLink]="['/school/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span >
+            Create new School
+            </span>
+            </button>
             <div class="table-responsive" *ngIf="schools">
                 <table class="table table-striped">
                     <thead>
