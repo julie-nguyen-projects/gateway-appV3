@@ -17,4 +17,4 @@ export * from './register/register.route';
 export * from './profile/profile.component';
 export * from './profile/profileRoute';
 export * from './account.route';
-export * from './experience/experience.component';
+export * from './profile/experience/experience.component';
