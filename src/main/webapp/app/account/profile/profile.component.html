@@ -1,0 +1,123 @@
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h2 *ngIf="settingsAccount">User profile for [<b>{{settingsAccount.login}}</b>]</h2>
+
+            <div class="alert alert-success" *ngIf="success">
+                <strong>Settings saved!</strong>
+            </div>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <p-fieldset legend="General informations" [toggleable]="true">
+                <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount"
+                      autocomplete="off">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your first name"
+                                       [(ngModel)]="settingsAccount.firstName" minlength=1 maxlength=50 #firstNameInput="ngModel" required>
+                                <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
+                                    <small class="form-text text-danger"
+                                           *ngIf="firstNameInput.errors.required">
+                                        Your first name is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="firstNameInput.errors.minlength">
+                                        Your first name is required to be at least 1 character.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="firstNameInput.errors.maxlength">
+                                        Your first name cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your last name"
+                                       [(ngModel)]="settingsAccount.lastName" minlength=1 maxlength=50 #lastNameInput="ngModel" required>
+                                <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
+                                    <small class="form-text text-danger"
+                                           *ngIf="lastNameInput.errors.required">
+                                        Your last name is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="lastNameInput.errors.minlength">
+                                        Your last name is required to be at least 1 character.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="lastNameInput.errors.maxlength">
+                                        Your last name cannot be longer than 50 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Your email"
+                                       [(ngModel)]="settingsAccount.email" minlength="5" maxlength="254" #emailInput="ngModel" email required>
+                                <div *ngIf="emailInput.dirty && emailInput.invalid">
+                                    <small class="form-text text-danger"
+                                           *ngIf="emailInput.errors.required">
+                                        Your email is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="emailInput.errors.email">
+                                        Your email is invalid.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="emailInput.errors.minlength">
+                                        Your email is required to be at least 5 characters.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="emailInput.errors.maxlength">
+                                        Your email cannot be longer than 100 characters.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="field_city">City</label>
+                                <p-autoComplete id="field_city" [(ngModel)]="this.city" field="name" [suggestions]="cities" name="city"
+                                                (completeMethod)="search($event)" [style]="{'width':'100%'}"
+                                                [inputStyle]="{'width':'100%'}"></p-autoComplete>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="field_picture">Picture</label>
+                                <div>
+                                    <img [src]="'data:' + this.userExtra.pictureContentType + ';base64,' + this.userExtra.picture" style="max-height: 100px;" *ngIf="userExtra.picture" alt="userExtra image"/>
+                                    <div *ngIf="this.userExtra.picture" class="form-text text-danger clearfix">
+                                        <span class="pull-left">{{this.userExtra.pictureContentType}}, {{byteSize(this.userExtra.picture)}}</span>
+                                        <button type="button" (click)="clearInputImage('picture', 'pictureContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="file_picture" (change)="setFileData($event, userExtra, 'picture', true)" accept="image/*"/>
+                                </div>
+                                <input *ngIf="this.userExtra.picture"
+                                       type="hidden" class="form-control" name="picture" id="field_picture"
+                                       [(ngModel)]="this.userExtra.picture" />
+                                <input type="hidden" class="form-control" name="pictureContentType" id="field_pictureContentType"
+                                       [(ngModel)]="this.userExtra.pictureContentType" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="field_birthdate">Birthdate</label>
+                                <div class="input-group">
+                                    <input id="field_birthdate" type="text" class="form-control" name="birthdate" ngbDatepicker  #birthdateDp="ngbDatepicker" [(ngModel)]="this.userExtra.birthdate"
+                                    />
+                                    <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="birthdateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary">Save</button>
+                </form>
+            </p-fieldset>
+        </div>
+    </div>
+    <jhi-experience></jhi-experience>
+</div>

@@ -1,17 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { Epikedin2SharedModule } from 'app/shared';
+import {Epikedin2SharedModule} from 'app/shared';
 
 import {
-    PasswordStrengthBarComponent,
-    RegisterComponent,
+    accountState,
     ActivateComponent,
     PasswordComponent,
-    PasswordResetInitComponent,
     PasswordResetFinishComponent,
-    SettingsComponent,
-    accountState
+    PasswordResetInitComponent,
+    PasswordStrengthBarComponent,
+    ProfileComponent,
+    RegisterComponent,
+    ExperienceComponent
 } from './';
 
 @NgModule({
@@ -23,7 +24,8 @@ import {
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
-        SettingsComponent
+        ProfileComponent,
+        ExperienceComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
