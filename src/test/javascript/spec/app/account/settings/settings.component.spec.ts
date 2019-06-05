@@ -3,26 +3,26 @@ import { Observable, throwError } from 'rxjs';
 
 import { Epikedin2TestModule } from '../../../test.module';
 import { AccountService } from 'app/core';
-import { SettingsComponent } from 'app/account/settings/settings.component';
+import { ProfileComponent } from 'app/account/profile/profile.component';
 
 describe('Component Tests', () => {
-    describe('SettingsComponent', () => {
-        let comp: SettingsComponent;
-        let fixture: ComponentFixture<SettingsComponent>;
+    describe('ProfileComponent', () => {
+        let comp: ProfileComponent;
+        let fixture: ComponentFixture<ProfileComponent>;
         let mockAuth: any;
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
                 imports: [Epikedin2TestModule],
-                declarations: [SettingsComponent],
+                declarations: [ProfileComponent],
                 providers: []
             })
-                .overrideTemplate(SettingsComponent, '')
+                .overrideTemplate(ProfileComponent, '')
                 .compileComponents();
         }));
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(SettingsComponent);
+            fixture = TestBed.createComponent(ProfileComponent);
             comp = fixture.componentInstance;
             mockAuth = fixture.debugElement.injector.get(AccountService);
         });

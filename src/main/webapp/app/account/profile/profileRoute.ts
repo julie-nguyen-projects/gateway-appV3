@@ -1,14 +1,14 @@
 import { Route } from '@angular/router';
 
 import { UserRouteAccessService } from 'app/core';
-import { SettingsComponent } from './settings.component';
+import { ProfileComponent } from 'app/account';
 
-export const settingsRoute: Route = {
-    path: 'settings',
-    component: SettingsComponent,
+export const profileRoute: Route = {
+    path: 'profile',
+    component: ProfileComponent,
     data: {
         authorities: ['ROLE_USER'],
-        pageTitle: 'Settings'
+        pageTitle: 'Profile'
     },
     canActivate: [UserRouteAccessService]
 };

@@ -10,7 +10,7 @@ import {
     PasswordComponent,
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
-    SettingsComponent,
+    ProfileComponent,
     accountState
 } from './';
 
@@ -23,7 +23,7 @@ import {
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
-        SettingsComponent
+        ProfileComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

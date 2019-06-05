@@ -11,9 +11,9 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-settings',
-    templateUrl: './settings.component.html'
+    templateUrl: './profile.component.html'
 })
-export class SettingsComponent implements OnInit {
+export class ProfileComponent implements OnInit {
     error: string;
     success: string;
     settingsAccount: any;
