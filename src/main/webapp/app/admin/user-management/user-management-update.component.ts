@@ -5,10 +5,16 @@ import { User, UserService } from 'app/core';
 import { UserExtraService } from 'app/entities/user-extra';
 import { UserExtra } from 'app/shared/model/user-extra.model';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { ICity } from 'app/shared/model/city.model';
+import { City, ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
 import { filter, map } from 'rxjs/operators';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { UserFeed } from 'app/shared/model/feedService/user-feed.model';
+import { UserConv } from 'app/shared/model/conversationService/user-conv.model';
+import { ExpUser } from 'app/shared/model/ExperienceService/exp-user.model';
+import { UserFeedService } from 'app/entities/feedService/user-feed';
+import { UserConvService } from 'app/entities/conversationService/user-conv';
+import { ExpUserService } from 'app/entities/ExperienceService/exp-user';
 
 @Component({
     selector: 'jhi-user-mgmt-update',
@@ -17,6 +23,9 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 export class UserMgmtUpdateComponent implements OnInit {
     user: User;
     userExtra: UserExtra;
+    userFeed: UserFeed;
+    userConv: UserConv;
+    expUser: ExpUser;
     languages: any[];
     authorities: any[];
     isSaving: boolean;
@@ -30,6 +39,9 @@ export class UserMgmtUpdateComponent implements OnInit {
         protected cityService: CityService,
         private userService: UserService,
         private userExtraService: UserExtraService,
+        private userFeedService: UserFeedService,
+        private userConvService: UserConvService,
+        private expUserService: ExpUserService,
         private route: ActivatedRoute,
         private router: Router
     ) {}
@@ -38,17 +50,18 @@ export class UserMgmtUpdateComponent implements OnInit {
         this.isSaving = false;
         this.route.data.subscribe(({ user }) => {
             this.user = user.body ? user.body : user;
-        });
-        this.userExtraService.find(this.user.id).subscribe(userExtra => {
-            this.userExtra = userExtra.body;
-            this.cityService.find(this.userExtra.cityId).subscribe(
-                found => {
-                    this.city = found.body;
-                },
-                err => {
-                    this.onError(err.message);
-                }
-            );
+            this.userExtraService.find(this.user.id).subscribe(userExtra => {
+                this.userExtra = userExtra.body;
+                this.cityService.find(this.userExtra.cityId).subscribe(
+                    found => {
+                        this.city = found.body;
+                    },
+                    err => {
+                        this.userExtra = new UserExtra();
+                        this.city = new City();
+                    }
+                );
+            });
         });
 
         this.authorities = [];
@@ -63,19 +76,41 @@ export class UserMgmtUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.userExtra.firstName = this.user.firstName;
-        this.userExtra.lastName = this.user.lastName;
-        this.userExtra.email = this.user.email;
-        this.userExtra.cityId = this.city.id;
-        this.userExtra.cityName = this.city.name;
-
+        if (this.userExtra.firstName != null) {
+            this.userExtra.firstName = this.user.firstName;
+        }
+        if (this.userExtra.lastName != null) {
+            this.userExtra.lastName = this.user.lastName;
+        }
+        if (this.userExtra.email != null) {
+            this.userExtra.email = this.user.email;
+        }
+        if (this.city.name != null) {
+            this.userExtra.cityId = this.city.id;
+            this.userExtra.cityName = this.city.name;
+        }
         if (this.user.id !== null) {
-            this.userExtraService.update(this.userExtra).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
-            this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
+            this.userExtraService.update(this.userExtra).subscribe(() => console.log('userExtra ok'), err => this.onSaveError(err));
+            this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), err => this.onSaveError(err));
         } else {
             this.user.langKey = 'en';
-            this.userExtraService.create(this.userExtra).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
-            this.userService.create(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
+            this.userService.create(this.user).subscribe(
+                response => {
+                    this.userExtra.id = response.body.id;
+                    this.userExtraService.create(this.userExtra).subscribe(() => console.log('userExtra ok'), err => this.onSaveError(err));
+                    this.userFeedService
+                        .create(this.userFeed, response.body.id)
+                        .subscribe(() => console.log('userFeed ok'), err => this.onSaveError(err));
+                    this.userConvService
+                        .create(this.userConv, response.body.id)
+                        .subscribe(() => console.log('userConv ok'), err => this.onSaveError(err));
+                    this.expUserService
+                        .create(this.expUser, response.body.id)
+                        .subscribe(() => console.log('expUser ok'), err => this.onSaveError(err));
+                    this.onSaveSuccess(response);
+                },
+                err => this.onSaveError(err)
+            );
         }
     }
 
@@ -84,7 +119,8 @@ export class UserMgmtUpdateComponent implements OnInit {
         this.previousState();
     }
 
-    private onSaveError() {
+    private onSaveError(err) {
+        console.log(err);
         this.isSaving = false;
     }
 

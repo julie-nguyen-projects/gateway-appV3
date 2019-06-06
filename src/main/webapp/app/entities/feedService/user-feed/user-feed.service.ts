@@ -15,12 +15,14 @@ export class UserFeedService {
 
     constructor(protected http: HttpClient) {}
 
-    create(userFeed: IUserFeed): Observable<EntityResponseType> {
-        return this.http.post<IUserFeed>(this.resourceUrl, userFeed, { observe: 'response' });
+    create(userFeed: IUserFeed, newId: string): Observable<EntityResponseType> {
+        const urlId = this.resourceUrl + '/' + newId;
+        return this.http.post<IUserFeed>(urlId, userFeed, { observe: 'response' });
     }
 
-    update(userFeed: IUserFeed): Observable<EntityResponseType> {
-        return this.http.put<IUserFeed>(this.resourceUrl, userFeed, { observe: 'response' });
+    update(userFeed: IUserFeed, newId: string): Observable<EntityResponseType> {
+        const urlId = this.resourceUrl + '/' + newId;
+        return this.http.put<IUserFeed>(urlId, userFeed, { observe: 'response' });
     }
 
     find(id: string): Observable<EntityResponseType> {

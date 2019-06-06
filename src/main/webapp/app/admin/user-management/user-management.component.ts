@@ -8,6 +8,12 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { AccountService, UserService, User } from 'app/core';
 import { UserMgmtDeleteDialogComponent } from 'app/admin';
+import { UserFeed } from 'app/shared/model/feedService/user-feed.model';
+import { ExpUser } from 'app/shared/model/ExperienceService/exp-user.model';
+import { UserConv } from 'app/shared/model/conversationService/user-conv.model';
+import { UserFeedService } from 'app/entities/feedService/user-feed';
+import { ExpUserService } from 'app/entities/ExperienceService/exp-user';
+import { UserConvService } from 'app/entities/conversationService/user-conv';
 
 @Component({
     selector: 'jhi-user-mgmt',
@@ -31,6 +37,9 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         private userService: UserService,
         private alertService: JhiAlertService,
         private accountService: AccountService,
+        private userFeedService: UserFeedService,
+        private expUserService: ExpUserService,
+        private userConvService: UserConvService,
         private parseLinks: JhiParseLinks,
         private activatedRoute: ActivatedRoute,
         private router: Router,
@@ -62,9 +71,65 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         this.eventManager.subscribe('userListModification', response => this.loadAll());
     }
 
+    firstActivation(user) {
+        this.userConvService.find(user.id).subscribe(
+            () => {
+                console.log('USER ALREADY EXIST');
+            },
+            () => {
+                console.log("USER DOESN'T EXIST");
+                const userConv = new UserConv();
+
+                this.userConvService.create(userConv, user.id).subscribe(
+                    () => {
+                        // empty for now
+                    },
+                    response => {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+        this.userFeedService.find(user.id).subscribe(
+            () => {
+                console.log('USER ALREADY EXIST');
+            },
+            () => {
+                console.log("USER DOESN'T EXIST");
+                const userFeed = new UserFeed();
+
+                this.userFeedService.create(userFeed, user.id).subscribe(
+                    () => {
+                        // empty for now
+                    },
+                    response => {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+        this.expUserService.find(user.id).subscribe(
+            () => {
+                console.log('USER ALREADY EXIST');
+            },
+            () => {
+                console.log("USER DOESN'T EXIST");
+                const expUser = new ExpUser();
+                this.expUserService.create(expUser, user.id).subscribe(
+                    () => {
+                        // empty for now
+                    },
+                    response => {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+    }
+
     setActive(user, isActivated) {
         user.activated = isActivated;
-
+        this.firstActivation(user);
         this.userService.update(user).subscribe(response => {
             if (response.status === 200) {
                 this.error = null;
