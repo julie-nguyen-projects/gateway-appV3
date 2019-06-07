@@ -45,7 +45,7 @@ describe('Service Tests', () => {
                 );
                 const expected = Object.assign({}, returnedFromService);
                 service
-                    .create(new UserFeed(null))
+                    .create(new UserFeed(null), 'test')
                     .pipe(take(1))
                     .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'POST' });
@@ -57,7 +57,7 @@ describe('Service Tests', () => {
 
                 const expected = Object.assign({}, returnedFromService);
                 service
-                    .update(expected)
+                    .update(expected, 'test')
                     .pipe(take(1))
                     .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'PUT' });

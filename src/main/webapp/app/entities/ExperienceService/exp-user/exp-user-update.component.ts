@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { IExpUser } from 'app/shared/model/ExperienceService/exp-user.model';
 import { ExpUserService } from './exp-user.service';
+import {AccountService} from "app/core";
 
 @Component({
     selector: 'jhi-exp-user-update',
@@ -13,14 +14,19 @@ import { ExpUserService } from './exp-user.service';
 export class ExpUserUpdateComponent implements OnInit {
     expUser: IExpUser;
     isSaving: boolean;
+    currentAccount: any;
 
-    constructor(protected expUserService: ExpUserService, protected activatedRoute: ActivatedRoute) {}
+    constructor(protected expUserService: ExpUserService, protected activatedRoute: ActivatedRoute,
+                private accountService: AccountService) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ expUser }) => {
             this.expUser = expUser;
         });
+        this.accountService.identity().then(account => {
+                this.currentAccount = account;
+            });
     }
 
     previousState() {
@@ -30,9 +36,9 @@ export class ExpUserUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.expUser.id !== undefined) {
-            this.subscribeToSaveResponse(this.expUserService.update(this.expUser));
+            this.subscribeToSaveResponse(this.expUserService.update(this.expUser, this.currentAccount.id));
         } else {
-            this.subscribeToSaveResponse(this.expUserService.create(this.expUser));
+            this.subscribeToSaveResponse(this.expUserService.create(this.expUser, this.currentAccount.id));
         }
     }
 

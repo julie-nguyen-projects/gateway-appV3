@@ -48,7 +48,7 @@
                         <a [routerLink]="['../city', userExtra.cityId , 'view' ]" >{{userExtra.cityName}}</a>
                     </div>
                 </td>
-                <td class="text-right">
+                <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/user-extra', userExtra.id, 'view' ]"
