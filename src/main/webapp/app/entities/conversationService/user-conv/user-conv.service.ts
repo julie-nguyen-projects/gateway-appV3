@@ -15,12 +15,14 @@ export class UserConvService {
 
     constructor(protected http: HttpClient) {}
 
-    create(userConv: IUserConv): Observable<EntityResponseType> {
-        return this.http.post<IUserConv>(this.resourceUrl, userConv, { observe: 'response' });
+    create(userConv: IUserConv, newId: string): Observable<EntityResponseType> {
+        const urlId = this.resourceUrl + '/' + newId;
+        return this.http.post<IUserConv>(urlId, userConv, { observe: 'response' });
     }
 
-    update(userConv: IUserConv): Observable<EntityResponseType> {
-        return this.http.put<IUserConv>(this.resourceUrl, userConv, { observe: 'response' });
+    update(userConv: IUserConv, newId: string): Observable<EntityResponseType> {
+        const urlId = this.resourceUrl + '/' + newId;
+        return this.http.put<IUserConv>(urlId, userConv, { observe: 'response' });
     }
 
     find(id: string): Observable<EntityResponseType> {

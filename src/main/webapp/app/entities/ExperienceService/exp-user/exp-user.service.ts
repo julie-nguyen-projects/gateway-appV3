@@ -15,12 +15,14 @@ export class ExpUserService {
 
     constructor(protected http: HttpClient) {}
 
-    create(expUser: IExpUser): Observable<EntityResponseType> {
-        return this.http.post<IExpUser>(this.resourceUrl, expUser, { observe: 'response' });
+    create(expUser: IExpUser, newId: string): Observable<EntityResponseType> {
+        const urlId = this.resourceUrl + '/' + newId;
+        return this.http.post<IExpUser>(urlId, expUser, { observe: 'response' });
     }
 
-    update(expUser: IExpUser): Observable<EntityResponseType> {
-        return this.http.put<IExpUser>(this.resourceUrl, expUser, { observe: 'response' });
+    update(expUser: IExpUser, newId): Observable<EntityResponseType> {
+        const urlId = this.resourceUrl + '/' + newId;
+        return this.http.put<IExpUser>(urlId, expUser, { observe: 'response' });
     }
 
     find(id: string): Observable<EntityResponseType> {
