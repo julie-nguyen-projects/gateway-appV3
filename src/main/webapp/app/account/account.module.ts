@@ -6,13 +6,13 @@ import {Epikedin2SharedModule} from 'app/shared';
 import {
     accountState,
     ActivateComponent,
+    ExperienceComponent,
     PasswordComponent,
     PasswordResetFinishComponent,
     PasswordResetInitComponent,
     PasswordStrengthBarComponent,
     ProfileComponent,
-    RegisterComponent,
-    ExperienceComponent
+    RegisterComponent
 } from './';
 
 @NgModule({
