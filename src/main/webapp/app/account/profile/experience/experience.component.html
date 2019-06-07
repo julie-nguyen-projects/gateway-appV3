@@ -1,14 +1,25 @@
 <div style="padding: 10px">
     <p-fieldset legend="Experiences" [toggleable]="true">
-        <div style="padding: 10px">
-            <p-fieldset legend="School" [toggleable]="true">
-
-            </p-fieldset>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['/experience/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon> <span>Create a new experience</span>
+                </button>
+            </div>
         </div>
-        <div style="padding: 10px">
-            <p-fieldset legend="Work" [toggleable]="true">
+        <div class="row" style="padding: 10px">
+            <div class="col-md-12">
+                <p-fieldset legend="School" [toggleable]="true">
 
-            </p-fieldset>
+                </p-fieldset>
+            </div>
+        </div>
+        <div class="row" style="padding: 10px">
+            <div class="col-md-12">
+                <p-fieldset legend="Work" [toggleable]="true">
+
+                </p-fieldset>
+            </div>
         </div>
     </p-fieldset>
 </div>
